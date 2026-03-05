@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Florist - My Orders</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-seedling"></i> Java Florist
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html"><i class="fas fa-info-circle"></i> About Flowers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="bouquet.html"><i class="fas fa-seedling"></i> Bouquets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="my-orders.html"><i class="fas fa-box"></i> My Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="myaccount.html"><i class="fas fa-user"></i> My Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link cart-icon" href="cart.html">
+                            <i class="fas fa-shopping-cart"></i> Cart
+                            <span class="cart-badge" id="cartCount">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Orders Header -->
+    <div class="orders-header">
+        <div class="container">
+            <h1><i class="fas fa-box"></i> My Orders</h1>
+            <p>Track and manage all your flower deliveries</p>
+        </div>
+    </div>
+
+    <!-- Orders Container -->
+    <div class="orders-container">
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <h3><i class="fas fa-filter"></i> Filter Orders</h3>
+            <div class="filter-controls">
+                <select class="filter-select" id="statusFilter" onchange="filterOrders()">
+                    <option value="all">📋 All Orders</option>
+                    <option value="delivered">✅ Delivered</option>
+                    <option value="processing">⚙️ Processing</option>
+                    <option value="pending">⏳ Pending</option>
+                    <option value="cancelled">❌ Cancelled</option>
+                    <option value="shipped">🚚 Shipped</option>
+                </select>
+                
+                <select class="filter-select" id="dateFilter" onchange="filterOrders()">
+                    <option value="all">📅 All Time</option>
+                    <option value="30">Last 30 Days</option>
+                    <option value="90">Last 3 Months</option>
+                    <option value="365">Last Year</option>
+                </select>
+                
+                <button class="filter-btn" onclick="resetFilters()">
+                    <i class="fas fa-undo-alt"></i> Reset Filters
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-box"></i>
+                </div>
+                <div class="stat-number" id="totalOrders">12</div>
+                <div class="stat-label">Total Orders</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-number" id="deliveredOrders">8</div>
+                <div class="stat-label">Delivered</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-number" id="pendingOrders">3</div>
+                <div class="stat-label">In Progress</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-rupee-sign"></i>
+                </div>
+                <div class="stat-number" id="totalSpent">₹15,499</div>
+                <div class="stat-label">Total Spent</div>
+            </div>
+        </div>
+
+        <!-- Orders List -->
+        <div class="orders-list" id="ordersList">
+            <!-- Order 1 -->
+            <div class="order-card" data-status="delivered" data-date="2026-03-01">
+                <div class="order-header">
+                    <div>
+                        <span class="order-id"><i class="fas fa-hashtag"></i> ORD-2026-001</span>
+                    </div>
+                    <div class="order-date">
+                        <i class="far fa-calendar-alt"></i> 01 March 2026
+                    </div>
+                    <div class="order-status status-delivered">
+                        <i class="fas fa-check-circle"></i> Delivered
+                    </div>
+                </div>
+                
+                <div class="order-body">
+                    <div class="order-items">
+                        <div class="order-item">
+                            <div class="item-image">
+                                <img src="https://images.unsplash.com/photo-1561181286-d3fee6576739?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Red Rose">
+                            </div>
+                            <div class="item-details">
+                                <h5>Red Rose Elegance</h5>
+                                <p>12 red roses with greenery</p>
+                            </div>
+                            <div class="item-price">₹1,299</div>
+                            <div class="item-quantity">Qty: 2</div>
+                        </div>
+                        
+                        <div class="order-item">
+                            <div class="item-image">
+                                <img src="https://images.unsplash.com/photo-1591117207239-788bf8de6c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Sunflower">
+                            </div>
+                            <div class="item-details">
+                                <h5>Sunshine Delight</h5>
+                                <p>Bright sunflowers arrangement</p>
+                            </div>
+                            <div class="item-price">₹899</div>
+                            <div class="item-quantity">Qty: 1</div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-summary">
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span>₹3,497</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Delivery</span>
+                            <span>₹50</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>GST (5%)</span>
+                            <span>₹175</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span>₹3,722</span>
+                        </div>
+                    </div>
+                    
+                    <div class="delivery-info">
+                        <h4><i class="fas fa-truck"></i> Delivery Details</h4>
+                        <div class="delivery-details">
+                            <div class="delivery-item">
+                                <i class="fas fa-user"></i>
+                                <span>Rahul Sharma</span>
+                            </div>
+                            <div class="delivery-item">
+                                <i class="fas fa-phone"></i>
+                                <span>+91 98765 43210</span>
+                            </div>
+                            <div class="delivery-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>123, Green Park, Mumbai - 400001</span>
+                            </div>
+                            <div class="delivery-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Delivered on 01 Mar 2026, 2:30 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="message-box">
+                        <i class="fas fa-quote-left"></i>
+                        "Happy Birthday! Wishing you a wonderful day filled with joy and beautiful moments."
+                    </div>
+                    
+                    <div class="order-actions">
+                        <button class="action-btn btn-secondary-action" onclick="trackOrder('ORD-2026-001')">
+                            <i class="fas fa-map-marker-alt"></i> Track
+                        </button>
+                        <button class="action-btn btn-secondary-action" onclick="viewInvoice('ORD-2026-001')">
+                            <i class="fas fa-file-pdf"></i> Invoice
+                        </button>
+                        <button class="action-btn btn-primary-action" onclick="reorder('ORD-2026-001')">
+                            <i class="fas fa-redo-alt"></i> Reorder
+                        </button>
+                        <button class="action-btn btn-danger-action" onclick="returnRequest('ORD-2026-001')">
+                            <i class="fas fa-undo-alt"></i> Return
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Order 2 -->
+            <div class="order-card" data-status="processing" data-date="2026-03-05">
+                <div class="order-header">
+                    <div>
+                        <span class="order-id"><i class="fas fa-hashtag"></i> ORD-2026-002</span>
+                    </div>
+                    <div class="order-date">
+                        <i class="far fa-calendar-alt"></i> 05 March 2026
+                    </div>
+                    <div class="order-status status-processing">
+                        <i class="fas fa-spinner fa-spin"></i> Processing
+                    </div>
+                </div>
+                
+                <div class="order-body">
+                    <div class="order-items">
+                        <div class="order-item">
+                            <div class="item-image">
+                                <img src="https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Mixed">
+                            </div>
+                            <div class="item-details">
+                                <h5>Spring Garden</h5>
+                                <p>Mixed seasonal flowers</p>
+                            </div>
+                            <div class="item-price">₹1,499</div>
+                            <div class="item-quantity">Qty: 1</div>
+                        </div>
+                        
+                        <div class="order-item">
+                            <div class="item-image">
+                                <img src="https://images.unsplash.com/photo-1530103043960-ef38714abb7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Lily">
+                            </div>
+                            <div class="item-details">
+                                <h5>White Lily Perfection</h5>
+                                <p>Elegant white lilies</p>
+                            </div>
+                            <div class="item-price">₹1,199</div>
+                            <div class="item-quantity">Qty: 1</div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-summary">
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span>₹2,698</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Delivery</span>
+                            <span>₹50</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>GST (5%)</span>
+                            <span>₹135</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span>₹2,883</span>
+                        </div>
+                    </div>
+                    
+                    <div class="delivery-info">
+                        <h4><i class="fas fa-truck"></i> Delivery Details</h4>
+                        <div class="delivery-details">
+                            <div class="delivery-item">
+                                <i class="fas fa-user"></i>
+                                <span>Priya Patel</span>
+                            </div>
+                            <div class="delivery-item">
+                                <i class="fas fa-phone"></i>
+                                <span>+91 98765 43211</span>
+                            </div>
+                            <div class="delivery-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>456, Lake View, Delhi - 110001</span>
+                            </div>
+                            <div class="delivery-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Expected: Today by 7 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline">
+                        <div class="timeline-step completed">
+                            <div class="step-dot"><i class="fas fa-check"></i></div>
+                            <div class="step-label">Ordered</div>
+                        </div>
+                        <div class="timeline-step active">
+                            <div class="step-dot">2</div>
+                            <div class="step-label">Processing</div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="step-dot">3</div>
+                            <div class="step-label">Shipped</div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="step-dot">4</div>
+                            <div class="step-label">Delivered</div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-actions">
+                        <button class="action-btn btn-secondary-action" onclick="trackOrder('ORD-2026-002')">
+                            <i class="fas fa-map-marker-alt"></i> Track
+                        </button>
+                        <button class="action-btn btn-secondary-action" onclick="viewInvoice('ORD-2026-002')">
+                            <i class="fas fa-file-pdf"></i> Invoice
+                        </button>
+                        <button class="action-btn btn-primary-action" onclick="reorder('ORD-2026-002')">
+                            <i class="fas fa-redo-alt"></i> Reorder
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Order 3 -->
+            <div class="order-card" data-status="pending" data-date="2026-03-06">
+                <div class="order-header">
+                    <div>
+                        <span class="order-id"><i class="fas fa-hashtag"></i> ORD-2026-003</span>
+                    </div>
+                    <div class="order-date">
+                        <i class="far fa-calendar-alt"></i> 06 March 2026
+                    </div>
+                    <div class="order-status status-pending">
+                        <i class="fas fa-hourglass-half"></i> Pending
+                    </div>
+                </div>
+                
+                <div class="order-body">
+                    <div class="order-items">
+                        <div class="order-item">
+                            <div class="item-image">
+                                <img src="https://images.unsplash.com/photo-1545127398-14699f92334b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Thanks">
+                            </div>
+                            <div class="item-details">
+                                <h5>Thanks a Million</h5>
+                                <p>Bright thank you arrangement</p>
+                            </div>
+                            <div class="item-price">₹799</div>
+                            <div class="item-quantity">Qty: 1</div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-summary">
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span>₹799</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Delivery</span>
+                            <span>₹50</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>GST (5%)</span>
+                            <span>₹40</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span>₹889</span>
+                        </div>
+                    </div>
+                    
+                    <div class="delivery-info">
+                        <h4><i class="fas fa-truck"></i> Delivery Details</h4>
+                        <div class="delivery-details">
+                            <div class="delivery-item">
+                                <i class="fas fa-user"></i>
+                                <span>Amit Kumar</span>
+                            </div>
+                            <div class="delivery-item">
+                                <i class="fas fa-phone"></i>
+                                <span>+91 98765 43212</span>
+                            </div>
+                            <div class="delivery-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>789, Rose Apartments, Bangalore - 560001</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-actions">
+                        <button class="action-btn btn-primary-action" onclick="cancelOrder('ORD-2026-003')">
+                            <i class="fas fa-times"></i> Cancel Order
+                        </button>
+                        <button class="action-btn btn-secondary-action" onclick="viewInvoice('ORD-2026-003')">
+                            <i class="fas fa-file-pdf"></i> Invoice
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty State (Hidden by default) -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <i class="fas fa-box-open"></i>
+            <h3>No Orders Found</h3>
+            <p>You haven't placed any orders yet. Start shopping to see your orders here!</p>
+            <a href="bouquet.html" class="shop-now-btn">
+                <i class="fas fa-seedling"></i> Shop Now
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-seedling"></i> Java Florist</h4>
+                    <p>Your trusted partner for expressing wishes through flowers. Same day delivery in Mumbai and nationwide through our trusted network.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Flowers</a>
+                    <a href="myaccount.html">My Account</a>
+                    <a href="cart.html">View Cart</a>
+                    <a href="my-orders.html">My Orders</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Occasions</h4>
+                    <a href="bouquet.html?occasion=birthday">Birthday</a>
+                    <a href="bouquet.html?occasion=wedding">Wedding</a>
+                    <a href="bouquet.html?occasion=newbaby">New Baby</a>
+                    <a href="bouquet.html?occasion=thankyou">Thank You</a>
+                    <a href="bouquet.html?occasion=fathersday">Father's Day</a>
+                    <a href="bouquet.html?occasion=mothersday">Mother's Day</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Mumbai, India</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-envelope"></i> info@javaflorist.com</p>
+                    <p><i class="fas fa-clock"></i> Mon-Sun: 9 AM - 9 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Java Florist. All rights reserved. | Delivering Happiness One Flower at a Time 🌸</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Filter orders function
+        function filterOrders() {
+            const status = document.getElementById('statusFilter').value;
+            const dateRange = document.getElementById('dateFilter').value;
+            const orders = document.querySelectorAll('.order-card');
+            
+            orders.forEach(order => {
+                const orderStatus = order.dataset.status;
+                const orderDate = new Date(order.dataset.date);
+                
+                let statusMatch = status === 'all' || orderStatus === status;
+                
+                let dateMatch = true;
+                if (dateRange !== 'all') {
+                    const daysAgo = parseInt(dateRange);
+                    const cutoffDate = new Date();
+                    cutoffDate.setDate(cutoffDate.getDate() - daysAgo);
+                    dateMatch = orderDate >= cutoffDate;
+                }
+                
+                if (statusMatch && dateMatch) {
+                    order.style.display = 'block';
+                } else {
+                    order.style.display = 'none';
+                }
+            });
+            
+            checkEmptyState();
+        }
+
+        // Reset filters function
+        function resetFilters() {
+            document.getElementById('statusFilter').value = 'all';
+            document.getElementById('dateFilter').value = 'all';
+            
+            document.querySelectorAll('.order-card').forEach(order => {
+                order.style.display = 'block';
+            });
+            
+            checkEmptyState();
+        }
+
+        // Check if any orders are visible
+        function checkEmptyState() {
+            const visibleOrders = document.querySelectorAll('.order-card[style="display: block;"]').length;
+            const emptyState = document.getElementById('emptyState');
+            
+            if (visibleOrders === 0) {
+                emptyState.style.display = 'block';
+            } else {
+                emptyState.style.display = 'none';
+            }
+        }
+
+        // Track order function
+        function trackOrder(orderId) {
+            alert(`Tracking order ${orderId}. You will receive SMS updates.`);
+        }
+
+        // View invoice function
+        function viewInvoice(orderId) {
+            alert(`Invoice for ${orderId} will be downloaded.`);
+            // In real app, would trigger PDF download
+        }
+
+        // Reorder function
+        function reorder(orderId) {
+            alert(`Items from order ${orderId} added to cart.`);
+            // In real app, would add items to cart
+        }
+
+        // Return request function
+        function returnRequest(orderId) {
+            if (confirm(`Request return for order ${orderId}?`)) {
+                alert('Return request submitted. Our team will contact you.');
+            }
+        }
+
+        // Cancel order function
+        function cancelOrder(orderId) {
+            if (confirm(`Are you sure you want to cancel order ${orderId}?`)) {
+                alert('Order cancelled successfully.');
+                // In real app, would update status
+            }
+        }
+
+        // Update cart count from localStorage
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const count = cart.reduce((total, item) => total + (item.quantity || 1), 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+        });
+    </script>
+</body>
+</html>

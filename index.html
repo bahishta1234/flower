@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Florist - Fresh Flower Delivery Mumbai & Nationwide</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Additional inline styles for home page */
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .featured-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #ffc107, #fd7e14);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+        
+        .price-tag {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-green);
+        }
+        
+        .old-price {
+            font-size: 1rem;
+            color: #999;
+            text-decoration: line-through;
+            margin-left: 0.5rem;
+        }
+        
+        .delivery-badge {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(255,255,255,0.9);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-seedling"></i>
+                Java Florist
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">
+                            <i class="fas fa-info-circle"></i> About Flowers
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="my-account.html">
+                            <i class="fas fa-user"></i> My Account
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link cart-icon" href="cart.html">
+                            <i class="fas fa-shopping-cart"></i> Cart
+                            <span class="cart-badge" id="cartCount">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="florist-registration.html">
+                            <i class="fas fa-store"></i> Florist Registration
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header>
+        <div class="container">
+            <h1>🌸 Express Your Love with Flowers</h1>
+            <p>Deliver happiness with our premium floral arrangements. Fresh flowers, same-day delivery in Mumbai, and nationwide service through our trusted network.</p>
+            <div class="hero-buttons">
+                <a href="#occasions" class="btn btn-primary btn-lg">Shop Now</a>
+                <a href="about.html" class="btn btn-outline-primary btn-lg">Learn More</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">10K+</span>
+                    <span class="stat-label">Happy Customers</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">5+</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Flower Varieties</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label">Cities Covered</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Occasions Section -->
+    <section id="occasions">
+        <div class="container">
+            <h2 class="section-title">🎉 Flowers for Every Occasion</h2>
+            <div class="row g-4">
+                <!-- Birthday -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="occasion-card">
+                        <div class="occasion-image">🎂</div>
+                        <div class="occasion-content">
+                            <h3>Birthday</h3>
+                            <p>Brighten someone's birthday with our vibrant and colorful flower arrangements.</p>
+                            <a href="bouquet.html?occasion=birthday" class="btn btn-primary">View Birthday Bouquets</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Wedding -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="occasion-card">
+                        <div class="occasion-image">💍</div>
+                        <div class="occasion-content">
+                            <h3>Wedding</h3>
+                            <p>Make the special day even more beautiful with elegant wedding flower arrangements.</p>
+                            <a href="bouquet.html?occasion=wedding" class="btn btn-primary">View Wedding Bouquets</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- New Baby -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="occasion-card">
+                        <div class="occasion-image">👶</div>
+                        <div class="occasion-content">
+                            <h3>New Baby</h3>
+                            <p>Welcome the newest member with our adorable and sweet baby flower collections.</p>
+                            <a href="bouquet.html?occasion=newbaby" class="btn btn-primary">View New Baby Bouquets</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Thank You -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="occasion-card">
+                        <div class="occasion-image">🙏</div>
+                        <div class="occasion-content">
+                            <h3>Thank You</h3>
+                            <p>Express your gratitude with meaningful flower arrangements that say it all.</p>
+                            <a href="bouquet.html?occasion=thankyou" class="btn btn-primary">View Thank You Bouquets</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Father's Day -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="occasion-card">
+                        <div class="occasion-image">👨</div>
+                        <div class="occasion-content">
+                            <h3>Father's Day</h3>
+                            <p>Celebrate your dad with sophisticated and charming flower arrangements.</p>
+                            <a href="bouquet.html?occasion=fathersday" class="btn btn-primary">View Father's Day Bouquets</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mother's Day -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="occasion-card">
+                        <div class="occasion-image">👩</div>
+                        <div class="occasion-content">
+                            <h3>Mother's Day</h3>
+                            <p>Show your love to mom with our beautiful and heartfelt flower selections.</p>
+                            <a href="bouquet.html?occasion=mothersday" class="btn btn-primary">View Mother's Day Bouquets</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <h3>Same Day Delivery</h3>
+                        <p>In Mumbai within 5 hours of booking (9 AM - 9 PM)</p>
+                        <span class="service-badge">Within 5 hrs</span>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-globe-asia"></i>
+                        </div>
+                        <h3>Nationwide Delivery</h3>
+                        <p>Through our network of trusted florists across India</p>
+                        <span class="service-badge">Pan India</span>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Working Hours</h3>
+                        <p>9 AM to 9 PM, All days. Order within 5 hours for same day</p>
+                        <span class="service-badge">9 AM - 9 PM</span>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h3>Secure Payment</h3>
+                        <p>Credit card payments with 100% secure transaction</p>
+                        <span class="service-badge">SSL Secure</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Bouquets Section -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">✨ Featured Bouquets</h2>
+            <div class="row g-4">
+                <!-- Bouquet 1 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="bouquet-card position-relative">
+                        <span class="featured-badge">Best Seller</span>
+                        <img src="https://images.unsplash.com/photo-1561181286-d3fee6576739?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Red Rose Bouquet" class="bouquet-image">
+                        <span class="delivery-badge"><i class="fas fa-clock"></i> Same Day</span>
+                        <div class="bouquet-info">
+                            <h4>Red Rose Elegance</h4>
+                            <p class="bouquet-description">12 stunning red roses with fresh greenery, perfect for expressing love.</p>
+                            <div class="price-tag">₹1,299 <span class="old-price">₹1,599</span></div>
+                            <a href="bouquet-details.html?id=1" class="btn btn-outline-primary w-100 mt-2">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bouquet 2 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="bouquet-card position-relative">
+                        <span class="featured-badge">New</span>
+                        <img src="https://images.unsplash.com/photo-1591117207239-788bf8de6c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Sunflower Bouquet" class="bouquet-image">
+                        <span class="delivery-badge"><i class="fas fa-clock"></i> Same Day</span>
+                        <div class="bouquet-info">
+                            <h4>Sunshine Delight</h4>
+                            <p class="bouquet-description">Bright sunflowers arrangement that brings joy and happiness.</p>
+                            <div class="price-tag">₹899 <span class="old-price">₹1,099</span></div>
+                            <a href="bouquet-details.html?id=2" class="btn btn-outline-primary w-100 mt-2">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bouquet 3 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="bouquet-card position-relative">
+                        <img src="https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Mixed Bouquet" class="bouquet-image">
+                        <span class="delivery-badge"><i class="fas fa-clock"></i> Same Day</span>
+                        <div class="bouquet-info">
+                            <h4>Spring Garden</h4>
+                            <p class="bouquet-description">Colorful mix of seasonal flowers in a beautiful arrangement.</p>
+                            <div class="price-tag">₹1,499</div>
+                            <a href="bouquet-details.html?id=3" class="btn btn-outline-primary w-100 mt-2">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bouquet 4 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="bouquet-card position-relative">
+                        <span class="featured-badge">20% Off</span>
+                        <img src="https://images.unsplash.com/photo-1530103043960-ef38714abb7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Lily Bouquet" class="bouquet-image">
+                        <span class="delivery-badge"><i class="fas fa-clock"></i> Same Day</span>
+                        <div class="bouquet-info">
+                            <h4>White Lily Perfection</h4>
+                            <p class="bouquet-description">Elegant white lilies for special occasions and celebrations.</p>
+                            <div class="price-tag">₹1,199 <span class="old-price">₹1,499</span></div>
+                            <a href="bouquet-details.html?id=4" class="btn btn-outline-primary w-100 mt-2">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <a href="bouquet.html" class="btn btn-primary btn-lg">View All Bouquets</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Send Your Feelings?</h2>
+            <p>Join thousands of happy customers who trust Java Florist for their special moments.</p>
+            <a href="myaccount.html" class="btn btn-lg">Register Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-seedling"></i> Java Florist</h4>
+                    <p>Your trusted partner for expressing wishes through flowers. Same day delivery in Mumbai and nationwide through our trusted network.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Flowers</a>
+                    <a href="myaccount.html">My Account</a>
+                    <a href="cart.html">View Cart</a>
+                    <a href="florist-registration.html">Florist Registration</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Occasions</h4>
+                    <a href="bouquet.html?occasion=birthday">Birthday</a>
+                    <a href="bouquet.html?occasion=wedding">Wedding</a>
+                    <a href="bouquet.html?occasion=newbaby">New Baby</a>
+                    <a href="bouquet.html?occasion=thankyou">Thank You</a>
+                    <a href="bouquet.html?occasion=fathersday">Father's Day</a>
+                    <a href="bouquet.html?occasion=mothersday">Mother's Day</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Mumbai, India</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-envelope"></i> info@javaflorist.com</p>
+                    <p><i class="fas fa-clock"></i> Mon-Sun: 9 AM - 9 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Java Flor

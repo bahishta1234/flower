@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Florist - Secure Checkout</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-seedling"></i> Java Florist
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html"><i class="fas fa-info-circle"></i> About Flowers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="myaccount.html"><i class="fas fa-user"></i> My Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.html">
+                            <i class="fas fa-shopping-cart"></i> Cart
+                            <span class="cart-badge" id="cartCount">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="florist-registration.html"><i class="fas fa-store"></i> Florist Registration</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Checkout Header -->
+    <div class="checkout-header">
+        <div class="container">
+            <h1><i class="fas fa-lock"></i> Secure Checkout</h1>
+            <p>Complete your order in just a few steps</p>
+        </div>
+    </div>
+
+    <!-- Checkout Container -->
+    <div class="checkout-container">
+        <!-- Progress Bar -->
+        <div class="checkout-progress">
+            <div class="progress-step active">
+                <div class="step-number">1</div>
+                <div class="step-label">Delivery</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-number">2</div>
+                <div class="step-label">Payment</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-number">3</div>
+                <div class="step-label">Confirm</div>
+            </div>
+        </div>
+
+        <!-- Checkout Content -->
+        <div class="checkout-content">
+            <!-- Left Column - Forms -->
+            <div>
+                <!-- Delivery Information Section (Requirement Point 5) -->
+                <div class="checkout-form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-truck"></i> Delivery Information
+                    </h3>
+                    
+                    <form class="checkout-form" id="deliveryForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-user"></i> Recipient Name *</label>
+                                <input type="text" id="recipientName" placeholder="Enter recipient's full name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label><i class="fas fa-phone"></i> Phone Number *</label>
+                                <input type="tel" id="recipientPhone" placeholder="10-digit mobile number" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-map-marker-alt"></i> Delivery Address *</label>
+                            <textarea id="deliveryAddress" placeholder="House/Flat No., Street, Landmark, City - Pincode" rows="2" required></textarea>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Message Section (Requirement Point 6) -->
+                <div class="checkout-form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-envelope"></i> Your Message
+                    </h3>
+                    
+                    <div class="checkout-form">
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar"></i> Select Occasion *</label>
+                            <select id="occasionSelect" onchange="loadMessages()" required>
+                                <option value="">Choose an occasion...</option>
+                                <option value="birthday">🎂 Birthday</option>
+                                <option value="wedding">💍 Wedding</option>
+                                <option value="newbaby">👶 New Baby</option>
+                                <option value="thankyou">🙏 Thank You</option>
+                                <option value="fathersday">👨 Father's Day</option>
+                                <option value="mothersday">👩 Mother's Day</option>
+                                <option value="anniversary">💕 Anniversary</option>
+                                <option value="getwell">🤒 Get Well Soon</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Predefined Messages -->
+                        <div class="message-templates" id="messageTemplates">
+                            <!-- Messages will load here -->
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-pen"></i> Write Your Own Message</label>
+                            <textarea id="customMessage" placeholder="Type your personal message here..." rows="3"></textarea>
+                            <small class="text-muted">You can choose from predefined messages above or write your own</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Section (Requirement Point 4) -->
+                <div class="checkout-form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-credit-card"></i> Payment Method
+                    </h3>
+                    
+                    <div class="payment-methods">
+                        <!-- Credit Card Option -->
+                        <div class="payment-card" onclick="selectPayment('card')">
+                            <input type="radio" name="payment" class="payment-radio" id="payCard" checked>
+                            <div class="payment-details">
+                                <div class="payment-name">Credit Card</div>
+                                <div class="payment-desc">Pay securely with your credit card</div>
+                            </div>
+                            <div class="payment-icon">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- Card Details -->
+                        <div class="card-details" id="cardDetails">
+                            <div class="form-group">
+                                <label>Card Number</label>
+                                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                            </div>
+                            
+                            <div class="card-row">
+                                <div class="form-group">
+                                    <label>Expiry Date</label>
+                                    <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>CVV</label>
+                                    <input type="password" id="cvv" placeholder="123" maxlength="3">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Name on Card</label>
+                                    <input type="text" id="cardName" placeholder="As on card">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Other payment options (static) -->
+                        <div class="payment-card">
+                            <input type="radio" name="payment" class="payment-radio" id="payUPI">
+                            <div class="payment-details">
+                                <div class="payment-name">UPI</div>
+                                <div class="payment-desc">Google Pay, PhonePe, Paytm</div>
+                            </div>
+                            <div class="payment-icon">
+                                <i class="fab fa-google-pay"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-card">
+                            <input type="radio" name="payment" class="payment-radio" id="payCOD">
+                            <div class="payment-details">
+                                <div class="payment-name">Cash on Delivery</div>
+                                <div class="payment-desc">Pay when you receive</div>
+                            </div>
+                            <div class="payment-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Order Summary -->
+            <div>
+                <div class="order-summary-sidebar">
+                    <h3><i class="fas fa-shopping-bag"></i> Order Summary</h3>
+                    
+                    <div class="order-items" id="orderItems">
+                        <!-- Sample items - in dynamic version, these come from cart -->
+                        <div class="order-item">
+                            <span class="item-name">
+                                Red Rose Elegance <small>x2</small>
+                            </span>
+                            <span class="item-price">₹2,598</span>
+                        </div>
+                        <div class="order-item">
+                            <span class="item-name">
+                                Sunshine Delight <small>x1</small>
+                            </span>
+                            <span class="item-price">₹899</span>
+                        </div>
+                        <div class="order-item">
+                            <span class="item-name">
+                                Spring Garden <small>x1</small>
+                            </span>
+                            <span class="item-price">₹1,499</span>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="checkoutSubtotal">₹4,996</span>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <span>Delivery Charge</span>
+                        <span id="checkoutDelivery">₹50</span>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <span>GST (5%)</span>
+                        <span id="checkoutGST">₹250</span>
+                    </div>
+                    
+                    <div class="summary-row total">
+                        <span>Total Amount</span>
+                        <span id="checkoutTotal">₹5,296</span>
+                    </div>
+                    
+                    <!-- Delivery Time Info (Requirement Point 7) -->
+                    <div class="delivery-info-box" id="deliveryTimeBox">
+                        <i class="fas fa-clock"></i>
+                        <strong>Delivery Time:</strong>
+                        <p id="deliveryTimeMessage">Order within next 2 hours for same day delivery</p>
+                        <span class="delivery-badge">5 Hour Delivery</span>
+                    </div>
+                    
+                    <!-- Place Order Button -->
+                    <button class="place-order-btn" onclick="placeOrder()">
+                        <i class="fas fa-lock"></i> Place Order & Pay
+                    </button>
+                    
+                    <!-- Secure Payment Note -->
+                    <div class="text-center mt-3">
+                        <small class="text-muted">
+                            <i class="fas fa-shield-alt"></i> Your payment is secure and encrypted
+                        </small>
+                    </div>
+                    
+                    <!-- Accepted Cards -->
+                    <div class="text-center mt-3">
+                        <i class="fab fa-cc-visa fa-2x mx-1 text-primary"></i>
+                        <i class="fab fa-cc-mastercard fa-2x mx-1 text-danger"></i>
+                        <i class="fab fa-cc-amex fa-2x mx-1 text-info"></i>
+                        <i class="fab fa-cc-rupee fa-2x mx-1 text-success"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-seedling"></i> Java Florist</h4>
+                    <p>Your trusted partner for expressing wishes through flowers. Same day delivery in Mumbai and nationwide through our trusted network.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Flowers</a>
+                    <a href="myaccount.html">My Account</a>
+                    <a href="cart.html">View Cart</a>
+                    <a href="florist-registration.html">Florist Registration</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Occasions</h4>
+                    <a href="#">Birthday</a>
+                    <a href="#">Wedding</a>
+                    <a href="#">New Baby</a>
+                    <a href="#">Thank You</a>
+                    <a href="#">Father's Day</a>
+                    <a href="#">Mother's Day</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Mumbai, India</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-envelope"></i> info@javaflorist.com</p>
+                    <p><i class="fas fa-clock"></i> Mon-Sun: 9 AM - 9 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Java Florist. All rights reserved. | Delivering Happiness One Flower at a Time 🌸</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Message templates database (Requirement Point 6)
+        const messages = {
+            birthday: [
+                "Happy Birthday! May your day be filled with joy and beautiful moments.",
+                "Wishing you a fantastic birthday and a wonderful year ahead!",
+                "Another year older, another year wiser. Happy Birthday!",
+                "Hope your special day brings you all that you deserve!"
+            ],
+            wedding: [
+                "Congratulations on your wedding! Wishing you a lifetime of love and happiness.",
+                "May your love bloom forever. Best wishes on your wedding!",
+                "Here's to love and happily ever after. Congratulations!",
+                "Wishing you a beautiful journey together as husband and wife."
+            ],
+            newbaby: [
+                "Congratulations on your new arrival! Wishing you lots of joy with your baby.",
+                "A new chapter begins. Congratulations on your bundle of joy!",
+                "Welcome to the world, little one! Congratulations to the proud parents.",
+                "So happy for you both on the arrival of your precious baby."
+            ],
+            thankyou: [
+                "Thank you for everything! Your kindness means so much.",
+                "Grateful for your support and generosity. Thank you!",
+                "Just a small token of appreciation for all you've done.",
+                "Thank you for being there when it mattered most."
+            ],
+            fathersday: [
+                "Happy Father's Day to the best dad in the world!",
+                "Thank you for everything you do. Happy Father's Day!",
+                "Wishing you a wonderful Father's Day filled with love.",
+                "To the world's greatest dad - Happy Father's Day!"
+            ],
+            mothersday: [
+                "Happy Mother's Day to the most amazing mom!",
+                "Thank you for your endless love and care. Happy Mother's Day!",
+                "You're the heart of our family. Happy Mother's Day!",
+                "Wishing you a beautiful Mother's Day filled with love."
+            ],
+            anniversary: [
+                "Happy Anniversary! Wishing you many more years of love.",
+                "Congratulations on another year of togetherness!",
+                "May your love continue to grow stronger each day.",
+                "Here's to love and happiness. Happy Anniversary!"
+            ],
+            getwell: [
+                "Get well soon! Sending you warm wishes for a speedy recovery.",
+                "Hope you feel better soon. Thinking of you!",
+                "Wishing you strength and good health. Get well soon!",
+                "May these flowers brighten your day and speed your recovery."
+            ]
+        };
+
+        // Load messages when occasion is selected
+        function loadMessages() {
+            const occasion = document.getElementById('occasionSelect').value;
+            const container = document.getElementById('messageTemplates');
+            
+            if (!occasion) {
+                container.innerHTML = '';
+                return;
+            }
+            
+            let html = '';
+            messages[occasion].forEach((msg, index) => {
+                html += `
+                    <div class="message-card" onclick="selectMessage(this, '${msg}')">
+                        <h5>Message ${index + 1}</h5>
+                        <p>${msg.substring(0, 50)}...</p>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // Select a message template
+        function selectMessage(element, message) {
+            document.querySelectorAll('.message-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            document.getElementById('customMessage').value = message;
+        }
+
+        // Toggle payment method
+        function selectPayment(method) {
+            if (method === 'card') {
+                document.getElementById('cardDetails').style.display = 'block';
+                document.getElementById('payCard').checked = true;
+            } else {
+                document.getElementById('cardDetails').style.display = 'none';
+            }
+        }
+
+        // Update delivery time based on current time (Requirement Point 7)
+        function updateDeliveryTime() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            
+            const workingStart = 9; // 9 AM
+            const workingEnd = 21; // 9 PM
+            
+            let message = '';
+            
+            if (hours >= workingStart && hours < workingEnd) {
+                const timeLeft = workingEnd - hours - 1;
+                const minsLeft = 60 - minutes;
+                
+                if (timeLeft >= 5) {
+                    message = `Order within next 5 hours for same day delivery (Today by ${hours + 5 > 12 ? (hours + 5 - 12) + ' PM' : (hours + 5) + ' AM'})`;
+                } else {
+                    message = `Order within next ${timeLeft} hours for same day delivery (Today by 9 PM)`;
+                }
+            } else {
+                message = `Order now for next day delivery (Tomorrow by 9 AM)`;
+            }
+            
+            document.getElementById('deliveryTimeMessage').textContent = message;
+        }
+
+        // Place order function
+        function placeOrder() {
+            // Validate delivery form (Requirement Point 5)
+            const name = document.getElementById('recipientName').value;
+            const phone = document.getElementById('recipientPhone').value;
+            const address = document.getElementById('deliveryAddress').value;
+            
+            if (!name || !phone || !address) {
+                alert('Please fill all delivery information');
+                return;
+            }
+            
+            // Validate phone number (10 digits)
+            if (!/^\d{10}$/.test(phone)) {
+                alert('Please enter valid 10-digit phone number');
+                return;
+            }
+            
+            // Validate message (Requirement Point 6)
+            const message = document.getElementById('customMessage').value;
+            if (!message) {
+                alert('Please write a message or choose a template');
+                return;
+            }
+            
+            // Get selected payment method (Requirement Point 4)
+            const paymentCard = document.getElementById('payCard').checked;
+            
+            if (paymentCard) {
+                const cardNumber = document.getElementById('cardNumber').value;
+                const expiry = document.getElementById('expiryDate').value;
+                const cvv = document.getElementById('cvv').value;
+                const cardName = document.getElementById('cardName').value;
+                
+                if (!cardNumber || !expiry || !cvv || !cardName) {
+                    alert('Please fill all card details');
+                    return;
+                }
+                
+                // Simple card validation
+                if (cardNumber.replace(/\s/g, '').length !== 16) {
+                    alert('Please enter valid 16-digit card number');
+                    return;
+                }
+            }
+            
+            // All validations passed - show success
+            alert('Order placed successfully! Thank you for shopping with Java Florist.');
+            window.location.href = 'order-success.html';
+        }
+
+        // Auto-format card number
+        document.getElementById('cardNumber')?.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '').replace(/\D/g, '');
+            let formatted = '';
+            for (let i = 0; i < value.length; i++) {
+                if (i > 0 && i % 4 === 0) {
+                    formatted += ' ';
+                }
+                formatted += value[i];
+            }
+            e.target.value = formatted;
+        });
+
+        // Auto-format expiry date
+        document.getElementById('expiryDate')?.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                e.target.value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            } else {
+                e.target.value = value;
+            }
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDeliveryTime();
+            setInterval(updateDeliveryTime, 60000); // Update every minute
+            
+            // Set minimum date for delivery (can't be past)
+            const today = new Date().toISOString().split('T')[0];
+            // If there's a date input, set min
+        });
+    </script>
+</body>
+</html>

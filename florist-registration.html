@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Florist - Partner Registration</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-seedling"></i> Java Florist
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html"><i class="fas fa-info-circle"></i> About Flowers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="myaccount.html"><i class="fas fa-user"></i> My Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.html">
+                            <i class="fas fa-shopping-cart"></i> Cart
+                            <span class="cart-badge" id="cartCount">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="florist-registration.html"><i class="fas fa-store"></i> Partner Registration</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Registration Header -->
+    <div class="registration-header">
+        <div class="container">
+            <h1><i class="fas fa-handshake"></i> Become a Java Florist Partner</h1>
+            <p>Join our network of trusted florists and grow your business across India</p>
+        </div>
+    </div>
+
+    <!-- Registration Container -->
+    <div class="registration-container">
+        <!-- Benefits Section -->
+        <div class="benefits-section">
+            <h2>Why Partner with Java Florist?</h2>
+            <p>We're looking for passionate florists to join our nationwide delivery network</p>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-globe-asia"></i>
+                    </div>
+                    <h3>Nationwide Reach</h3>
+                    <p>Connect with customers across India through our platform</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Increased Business</h3>
+                    <p>Get more orders through our established customer base</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-rupee-sign"></i>
+                    </div>
+                    <h3>Fair Commission</h3>
+                    <p>Competitive revenue sharing model with timely payments</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Logistics Support</h3>
+                    <p>We help coordinate deliveries across your area</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="stat-card">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Partner Florists</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">Cities Covered</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">50K+</div>
+                <div class="stat-label">Orders Delivered</div>
+            </div>
+        </div>
+
+        <!-- Registration Form Section -->
+        <div class="form-section">
+            <h2><i class="fas fa-store"></i> Florist Registration Form</h2>
+            <p class="subtitle">Fill in your details to join our network. Our team will verify and contact you within 2-3 business days.</p>
+            
+            <div class="success-message" id="successMessage">
+                <i class="fas fa-check-circle"></i>
+                <div class="success-message-content">
+                    <h4>Registration Submitted Successfully!</h4>
+                    <p>Thank you for your interest. Our team will review your application and contact you soon.</p>
+                </div>
+            </div>
+            
+            <form class="registration-form" id="registrationForm" onsubmit="return submitRegistration(event)">
+                <!-- Business Information -->
+                <h5 style="color: var(--primary-green); margin-bottom: 1rem;">🏪 Business Information</h5>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-store-alt"></i> Shop/Business Name <span class="required">*</span></label>
+                        <input type="text" id="shopName" placeholder="Your florist shop name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar"></i> Years in Business <span class="required">*</span></label>
+                        <input type="number" id="yearsInBusiness" placeholder="Number of years" min="0" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Owner Name <span class="required">*</span></label>
+                        <input type="text" id="ownerName" placeholder="Full name of owner" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-phone"></i> Phone Number <span class="required">*</span></label>
+                        <input type="tel" id="phone" placeholder="+91 98765 43210" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> Email Address <span class="required">*</span></label>
+                    <input type="email" id="email" placeholder="your@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-map-marker-alt"></i> Business Address <span class="required">*</span></label>
+                    <textarea id="address" placeholder="Complete business address with landmark" rows="2" required></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-city"></i> City <span class="required">*</span></label>
+                        <input type="text" id="city" placeholder="City name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-map-pin"></i> Pincode <span class="required">*</span></label>
+                        <input type="text" id="pincode" placeholder="6-digit pincode" maxlength="6" required>
+                    </div>
+                </div>
+                
+                <!-- Business Details -->
+                <h5 style="color: var(--primary-green); margin: 2rem 0 1rem;">📋 Business Details</h5>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-id-card"></i> GST Number <span class="required">*</span></label>
+                        <input type="text" id="gst" placeholder="15-digit GST number" required>
+                        <small>Format: 22AAAAA0000A1Z5</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-id-card"></i> PAN Number <span class="required">*</span></label>
+                        <input type="text" id="pan" placeholder="10-digit PAN" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-tag"></i> Specialization</label>
+                    <select id="specialization">
+                        <option value="">Select your specialty (optional)</option>
+                        <option value="wedding">Wedding Florist</option>
+                        <option value="event">Event Decorator</option>
+                        <option value="corporate">Corporate Events</option>
+                        <option value="all">All Occasions</option>
+                        <option value="custom">Custom Designs</option>
+                    </select>
+                </div>
+                
+                <!-- Services Offered -->
+                <h5 style="color: var(--primary-green); margin: 2rem 0 1rem;">🛠️ Services Offered</h5>
+                
+                <div class="services-grid">
+                    <div class="service-checkbox">
+                        <input type="checkbox" id="serviceDelivery" checked>
+                        <label for="serviceDelivery">Same Day Delivery</label>
+                    </div>
+                    <div class="service-checkbox">
+                        <input type="checkbox" id="serviceCustom">
+                        <label for="serviceCustom">Custom Arrangements</label>
+                    </div>
+                    <div class="service-checkbox">
+                        <input type="checkbox" id="serviceWedding">
+                        <label for="serviceWedding">Wedding Services</label>
+                    </div>
+                    <div class="service-checkbox">
+                        <input type="checkbox" id="serviceCorporate">
+                        <label for="serviceCorporate">Corporate Events</label>
+                    </div>
+                    <div class="service-checkbox">
+                        <input type="checkbox" id="serviceFuneral">
+                        <label for="serviceFuneral">Funeral Flowers</label>
+                    </div>
+                    <div class="service-checkbox">
+                        <input type="checkbox" id="serviceBulk">
+                        <label for="serviceBulk">Bulk Orders</label>
+                    </div>
+                </div>
+                
+                <!-- Business Documents -->
+                <h5 style="color: var(--primary-green); margin: 2rem 0 1rem;">📎 Business Documents</h5>
+                
+                <div class="form-group">
+                    <label>GST Certificate (Upload)</label>
+                    <div class="file-upload" onclick="document.getElementById('gstFile').click()">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Click to upload GST certificate</p>
+                        <small>PDF, JPG or PNG (Max 5MB)</small>
+                        <input type="file" id="gstFile" accept=".pdf,.jpg,.jpeg,.png">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Shop/Establishment Photo</label>
+                    <div class="file-upload" onclick="document.getElementById('shopPhoto').click()">
+                        <i class="fas fa-camera"></i>
+                        <p>Click to upload shop photo</p>
+                        <small>JPG or PNG (Max 5MB)</small>
+                        <input type="file" id="shopPhoto" accept=".jpg,.jpeg,.png">
+                    </div>
+                </div>
+                
+                <!-- Additional Information -->
+                <h5 style="color: var(--primary-green); margin: 2rem 0 1rem;">💬 Additional Information</h5>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-comment"></i> Tell us about your business</label>
+                    <textarea id="aboutBusiness" placeholder="Describe your experience, specialties, and why you want to partner with Java Florist" rows="4"></textarea>
+                </div>
+                
+                <!-- Terms and Conditions -->
+                <div class="terms-box" id="termsText">
+                    <p><strong>Terms and Conditions for Florist Partners:</strong></p>
+                    <p>1. You must be a registered business with valid GST and PAN.</p>
+                    <p>2. You agree to deliver flowers as per the order specifications and timeline.</p>
+                    <p>3. Java Florist will handle customer communication and payment collection.</p>
+                    <p>4. Commission will be paid on a monthly basis after order verification.</p>
+                    <p>5. You maintain the quality and freshness of all flowers delivered.</p>
+                    <p>6. You agree to our quality standards and delivery timelines.</p>
+                    <p>7. Your partnership can be reviewed or terminated based on performance.</p>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="agreeTerms" required>
+                    <label for="agreeTerms">I have read and agree to the <a href="#" style="color: var(--primary-green);">Terms & Conditions</a> and <a href="#" style="color: var(--primary-green);">Privacy Policy</a> <span class="required">*</span></label>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="agreeInfo" required>
+                    <label for="agreeInfo">I confirm that all information provided is accurate and complete <span class="required">*</span></label>
+                </div>
+                
+                <!-- Submit Button -->
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> Submit Registration
+                    <span class="spinner"></span>
+                </button>
+            </form>
+        </div>
+
+        <!-- Testimonials Section -->
+        <div class="testimonials-section">
+            <h2>What Our Partners Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Partnering with Java Florist has transformed my business. I now get orders from across Mumbai and have doubled my monthly revenue."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">P</div>
+                        <div class="author-info">
+                            <h5>Priya Sharma</h5>
+                            <p>Mumbai, 3+ years partner</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The platform is easy to use and payments are always on time. Great support team and growing customer base."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">R</div>
+                        <div class="author-info">
+                            <h5>Rajesh Kumar</h5>
+                            <p>Delhi, 2+ years partner</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-seedling"></i> Java Florist</h4>
+                    <p>Your trusted partner for expressing wishes through flowers. Same day delivery in Mumbai and nationwide through our trusted network.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Flowers</a>
+                    <a href="myaccount.html">My Account</a>
+                    <a href="cart.html">View Cart</a>
+                    <a href="florist-registration.html">Partner Registration</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Occasions</h4>
+                    <a href="#">Birthday</a>
+                    <a href="#">Wedding</a>
+                    <a href="#">New Baby</a>
+                    <a href="#">Thank You</a>
+                    <a href="#">Father's Day</a>
+                    <a href="#">Mother's Day</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Mumbai, India</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-envelope"></i> info@javaflorist.com</p>
+                    <p><i class="fas fa-clock"></i> Mon-Sun: 9 AM - 9 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Java Florist. All rights reserved. | Delivering Happiness One Flower at a Time 🌸</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Form submission handler
+        function submitRegistration(event) {
+            event.preventDefault();
+            
+            // Get required fields
+            const shopName = document.getElementById('shopName').value;
+            const yearsInBusiness = document.getElementById('yearsInBusiness').value;
+            const ownerName = document.getElementById('ownerName').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const address = document.getElementById('address').value;
+            const city = document.getElementById('city').value;
+            const pincode = document.getElementById('pincode').value;
+            const gst = document.getElementById('gst').value;
+            const pan = document.getElementById('pan').value;
+            const agreeTerms = document.getElementById('agreeTerms').checked;
+            const agreeInfo = document.getElementById('agreeInfo').checked;
+            
+            // Basic validation
+            if (!shopName || !yearsInBusiness || !ownerName || !phone || !email || !address || !city || !pincode || !gst || !pan) {
+                alert('Please fill all required fields');
+                return false;
+            }
+            
+            // Email validation
+            if (!isValidEmail(email)) {
+                alert('Please enter a valid email address');
+                return false;
+            }
+            
+            // Phone validation
+            if (!isValidPhone(phone)) {
+                alert('Please enter a valid 10-digit phone number');
+                return false;
+            }
+            
+            // Pincode validation
+            if (pincode.length !== 6 || !/^\d+$/.test(pincode)) {
+                alert('Please enter a valid 6-digit pincode');
+                return false;
+            }
+            
+            // GST validation (simplified)
+            if (gst.length < 15) {
+                alert('Please enter a valid 15-digit GST number');
+                return false;
+            }
+            
+            // PAN validation
+            if (pan.length !== 10) {
+                alert('Please enter a valid 10-digit PAN number');
+                return false;
+            }
+            
+            // Terms agreement
+            if (!agreeTerms || !agreeInfo) {
+                alert('Please agree to the terms and conditions');
+                return false;
+            }
+            
+            // Show loading state
+            const btn = document.getElementById('submitBtn');
+            btn.classList.add('loading');
+            btn.disabled = true;
+            
+            // Simulate API call (remove in production)
+            setTimeout(() => {
+                // Hide loading
+                btn.classList.remove('loading');
+                btn.disabled = false;
+                
+                // Show success message
+                const successMsg = document.getElementById('successMessage');
+                successMsg.classList.add('show');
+                
+                // Reset form
+                document.getElementById('registrationForm').reset();
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMsg.classList.remove('show');
+                }, 5000);
+            }, 2000);
+            
+            return false;
+        }
+        
+        // Email validation helper
+        function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        // Phone validation helper
+        function isValidPhone(phone) {
+            const digits = phone.replace(/\D/g, '');
+            return digits.length === 10;
+        }
+        
+        // Phone number formatting
+        document.getElementById('phone')?.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 10) value = value.slice(0, 10);
+            e.target.value = value;
+        });
+        
+        // Pincode validation
+        document.getElementById('pincode')?.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 6) value = value.slice(0, 6);
+            e.target.value = value;
+        });
+        
+        // GST formatting (basic)
+        document.getElementById('gst')?.addEventListener('input', function(e) {
+            let value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+            if (value.length > 15) value = value.slice(0, 15);
+            e.target.value = value;
+        });
+        
+        // PAN formatting
+        document.getElementById('pan')?.addEventListener('input', function(e) {
+            let value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+            if (value.length > 10) value = value.slice(0, 10);
+            e.target.value = value;
+        });
+        
+        // Update cart count from localStorage
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const countElement = document.getElementById('cartCount');
+            if (countElement) {
+                countElement.textContent = cart.length;
+            }
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+        });
+    </script>
+</body>
+</html>

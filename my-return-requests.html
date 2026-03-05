@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Florist - My Return Requests</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-seedling"></i> Java Florist
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html"><i class="fas fa-info-circle"></i> About Flowers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="bouquet.html"><i class="fas fa-seedling"></i> Bouquets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="my-profile.html"><i class="fas fa-user-circle"></i> My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="my-orders.html"><i class="fas fa-box"></i> My Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="my-returns.html"><i class="fas fa-undo-alt"></i> Returns</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link cart-icon" href="cart.html">
+                            <i class="fas fa-shopping-cart"></i> Cart
+                            <span class="cart-badge" id="cartCount">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Return Header -->
+    <div class="return-header">
+        <div class="container">
+            <h1><i class="fas fa-undo-alt"></i> My Return Requests</h1>
+            <p>Track and manage your return requests</p>
+        </div>
+    </div>
+
+    <!-- Return Container -->
+    <div class="return-container">
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <div class="action-card" onclick="openReturnModal()">
+                <div class="action-icon">
+                    <i class="fas fa-plus"></i>
+                </div>
+                <h3>New Return</h3>
+                <p>Request a return for any delivered order</p>
+            </div>
+            
+            <div class="action-card" onclick="window.location.href='return-policy.html'">
+                <div class="action-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <h3>Return Policy</h3>
+                <p>Read our return and refund policy</p>
+            </div>
+            
+            <div class="action-card" onclick="window.location.href='contact.html'">
+                <div class="action-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>Need Help?</h3>
+                <p>Contact our support team</p>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                <div class="stat-number" id="pendingReturns">2</div>
+                <div class="stat-label">Pending</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                <div class="stat-number" id="approvedReturns">1</div>
+                <div class="stat-label">Approved</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-times-circle"></i></div>
+                <div class="stat-number" id="rejectedReturns">0</div>
+                <div class="stat-label">Rejected</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-rupee-sign"></i></div>
+                <div class="stat-number" id="totalRefund">₹4,611</div>
+                <div class="stat-label">Total Refund</div>
+            </div>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <select class="filter-select" id="statusFilter" onchange="filterReturns()">
+                <option value="all">📋 All Requests</option>
+                <option value="pending">⏳ Pending</option>
+                <option value="approved">✅ Approved</option>
+                <option value="processing">⚙️ Processing</option>
+                <option value="completed">🎉 Completed</option>
+                <option value="rejected">❌ Rejected</option>
+            </select>
+            
+            <select class="filter-select" id="dateFilter" onchange="filterReturns()">
+                <option value="all">📅 All Time</option>
+                <option value="30">Last 30 Days</option>
+                <option value="90">Last 3 Months</option>
+                <option value="365">Last Year</option>
+            </select>
+            
+            <button class="filter-btn" onclick="resetFilters()">
+                <i class="fas fa-undo-alt"></i> Reset Filters
+            </button>
+        </div>
+
+        <!-- Return Requests List -->
+        <div class="return-list" id="returnList">
+            <!-- Return Request 1 -->
+            <div class="return-card" data-status="pending" data-date="2026-03-01">
+                <div class="return-header">
+                    <div>
+                        <span class="return-id"><i class="fas fa-hashtag"></i> RET-2026-001</span>
+                    </div>
+                    <div class="return-order">
+                        <i class="fas fa-box"></i> Order: ORD-2026-001
+                    </div>
+                    <div class="return-status status-pending">
+                        <i class="fas fa-clock"></i> Pending
+                    </div>
+                </div>
+                
+                <div class="return-body">
+                    <div class="return-items">
+                        <div class="return-item">
+                            <div class="item-image">
+                                <img src="https://images.unsplash.com/photo-1561181286-d3fee6576739?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Rose">
+                            </div>
+                            <div class="item-details">
+                                <h5>Red Rose Elegance</h5>
+                                <p>Return Qty: 2</p>
+                            </div>
+                            <div class="item-price">₹1,299</div>
+                            <div class="item-quantity">Refund: ₹2,598</div>
+                        </div>
+                    </div>
+                    
+                    <div class="return-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Reason:</span>
+                            <span class="detail-value">Damaged upon delivery</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Requested:</span>
+                            <span class="detail-value">01 March 2026</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Expected by:</span>
+                            <span class="detail-value">08 March 2026</span>
+                        </div>
+                        <div class="reason-box">
+                            <i class="fas fa-quote-left"></i>
+                            "The flowers arrived wilted and some petals were damaged. Requesting full refund."
+                        </div>
+                    </div>
+                    
+                    <div class="evidence-section">
+                        <div class="evidence-title">
+                            <i class="fas fa-camera"></i> Evidence (2 photos)
+                        </div>
+                        <div class="evidence-grid">
+                            <div class="evidence-item" onclick="viewImage('img1')">
+                                <img src="https://images.unsplash.com/photo-1561181286-d3fee6576739?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Evidence 1">
+                                <div class="evidence-overlay">
+                                    <i class="fas fa-search-plus"></i>
+                                </div>
+                            </div>
+                            <div class="evidence-item" onclick="viewImage('img2')">
+                                <img src="https://images.unsplash.com/photo-1561181286-d3fee6576739?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Evidence 2">
+                                <div class="evidence-overlay">
+                                    <i class="fas fa-search-plus"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item completed">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">01 Mar 2026, 10:30 AM</div>
+                                <div class="timeline-title">Return Requested</div>
+                                <div class="timeline-description">Your return request has been submitted</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item active">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">01 Mar 2026, 11:15 AM</div>
+                                <div class="timeline-title">Under Review</div>
+                                <div class="timeline-description">Your request is being reviewed by our team</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">Expected: 08 Mar 2026</div>
+                                <div class="timeline-title">Decision</div>
+                                <div class="timeline-description">We will notify you once decision is made</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="return-actions">
+                        <button class="action-btn btn-danger-action" onclick="cancelReturn('RET-2026-001')">
+                            <i class="fas fa-times"></i> Cancel Request
+                        </button>
+                        <button class="action-btn btn-secondary-action" onclick="contactSupport('RET-2026-001')">
+                            <i class="fas fa-headset"></i> Contact Support
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Return Request 2 -->
+            <div class="return-card" data-status="approved" data-date="2026-02-25">
+                <div class="return-header">
+                    <div>
+                        <span class="return-id"><i class="fas fa-hashtag"></i> RET-2026-002</span>
+                    </div>
+                    <div class="return-order">
+                        <i class="fas fa-box"></i> Order: ORD-2026-002
+                    </div>
+                    <div class="return-status status-approved">
+                        <i class="fas fa-check-circle"></i> Approved
+                    </div>
+                </div>
+                
+                <div class="return-body">
+                    <div class="return-items">
+                        <div class="return-item">
+                            <div class="item-image">
+                                <img src="https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Mixed">
+                            </div>
+                            <div class="item-details">
+                                <h5>Spring Garden</h5>
+                                <p>Return Qty: 1</p>
+                            </div>
+                            <div class="item-price">₹1,499</div>
+                            <div class="item-quantity">Refund: ₹1,499</div>
+                        </div>
+                    </div>
+                    
+                    <div class="return-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Reason:</span>
+                            <span class="detail-value">Wrong item delivered</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Requested:</span>
+                            <span class="detail-value">25 February 2026</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Approved:</span>
+                            <span class="detail-value">26 February 2026</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Refund Amount:</span>
+                            <span class="detail-value fw-bold text-success">₹1,499</span>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item completed">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">25 Feb 2026</div>
+                                <div class="timeline-title">Requested</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item completed">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">26 Feb 2026</div>
+                                <div class="timeline-title">Approved</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item completed">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">28 Feb 2026</div>
+                                <div class="timeline-title">Refund Processed</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="return-actions">
+                        <button class="action-btn btn-secondary-action" onclick="viewRefundStatus('RET-2026-002')">
+                            <i class="fas fa-rupee-sign"></i> View Refund Status
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Return Request 3 -->
+            <div class="return-card" data-status="processing" data-date="2026-02-28">
+                <div class="return-header">
+                    <div>
+                        <span class="return-id"><i class="fas fa-hashtag"></i> RET-2026-003</span>
+                    </div>
+                    <div class="return-order">
+                        <i class="fas fa-box"></i> Order: ORD-2026-003
+                    </div>
+                    <div class="return-status status-processing">
+                        <i class="fas fa-spinner fa-spin"></i> Processing
+                    </div>
+                </div>
+                
+                <div class="return-body">
+                    <div class="return-items">
+                        <div class="return-item">
+                            <div class="item-image">
+                                <img src="https://images.unsplash.com/photo-1545127398-14699f92334b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Thanks">
+                            </div>
+                            <div class="item-details">
+                                <h5>Thanks a Million</h5>
+                                <p>Return Qty: 1</p>
+                            </div>
+                            <div class="item-price">₹799</div>
+                            <div class="item-quantity">Refund: ₹889</div>
+                        </div>
+                    </div>
+                    
+                    <div class="return-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Reason:</span>
+                            <span class="detail-value">Quality not as expected</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Requested:</span>
+                            <span class="detail-value">28 February 2026</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Pickup scheduled:</span>
+                            <span class="detail-value">05 March 2026</span>
+                        </div>
+                    </div>
+                    
+                    <div class="return-actions">
+                        <button class="action-btn btn-secondary-action" onclick="reschedulePickup('RET-2026-003')">
+                            <i class="fas fa-calendar-alt"></i> Reschedule Pickup
+                        </button>
+                        <button class="action-btn btn-primary-action" onclick="trackPickup('RET-2026-003')">
+                            <i class="fas fa-truck"></i> Track Pickup
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty State (Hidden by default) -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <i class="fas fa-undo-alt"></i>
+            <h3>No Return Requests Found</h3>
+            <p>You haven't made any return requests yet. Need to return an item?</p>
+            <button class="btn" onclick="openReturnModal()">
+                <i class="fas fa-plus"></i> Create Return Request
+            </button>
+        </div>
+    </div>
+
+    <!-- New Return Request Modal -->
+    <div id="returnModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <h2><i class="fas fa-undo-alt"></i> New Return Request</h2>
+                
+                <form class="return-form" onsubmit="return false;">
+                    <div class="form-group">
+                        <label><i class="fas fa-box"></i> Select Order *</label>
+                        <select id="orderSelect" required>
+                            <option value="">Choose an order...</option>
+                            <option value="ORD-2026-001">ORD-2026-001 - 01 Mar 2026</option>
+                            <option value="ORD-2026-002">ORD-2026-002 - 05 Mar 2026</option>
+                            <option value="ORD-2026-003">ORD-2026-003 - 06 Mar 2026</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-tag"></i> Reason for Return *</label>
+                        <select id="reasonSelect" required>
+                            <option value="">Select a reason...</option>
+                            <option value="damaged">Damaged upon delivery</option>
+                            <option value="wrong">Wrong item delivered</option>
+                            <option value="quality">Quality not as expected</option>
+                            <option value="defective">Defective product</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-comment"></i> Detailed Explanation *</label>
+                        <textarea id="returnReason" placeholder="Please provide details about the issue..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-camera"></i> Upload Evidence (Photos)</label>
+                        <div class="file-upload" onclick="document.getElementById('evidenceFiles').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to upload photos</p>
+                            <small>JPG, PNG (Max 5 photos, 5MB each)</small>
+                            <input type="file" id="evidenceFiles" accept="image/*" multiple style="display: none;">
+                        </div>
+                    </div>
+                    
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="agreeTerms" required>
+                        <label class="form-check-label" for="agreeTerms">
+                            I confirm that the information provided is accurate and I have read the 
+                            <a href="#" style="color: var(--primary-green);">return policy</a>.
+                        </label>
+                    </div>
+                    
+                    <div class="return-actions">
+                        <button type="button" class="action-btn btn-secondary-action" onclick="closeReturnModal()">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                        <button type="button" class="action-btn btn-primary-action" onclick="submitReturn()">
+                            <i class="fas fa-paper-plane"></i> Submit Request
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-seedling"></i> Java Florist</h4>
+                    <p>Your trusted partner for expressing wishes through flowers. Same day delivery in Mumbai and nationwide through our trusted network.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Flowers</a>
+                    <a href="my-profile.html">My Profile</a>
+                    <a href="cart.html">View Cart</a>
+                    <a href="my-orders.html">My Orders</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Occasions</h4>
+                    <a href="bouquet.html?occasion=birthday">Birthday</a>
+                    <a href="bouquet.html?occasion=wedding">Wedding</a>
+                    <a href="bouquet.html?occasion=newbaby">New Baby</a>
+                    <a href="bouquet.html?occasion=thankyou">Thank You</a>
+                    <a href="bouquet.html?occasion=fathersday">Father's Day</a>
+                    <a href="bouquet.html?occasion=mothersday">Mother's Day</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Mumbai, India</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-envelope"></i> info@javaflorist.com</p>
+                    <p><i class="fas fa-clock"></i> Mon-Sun: 9 AM - 9 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Java Florist. All rights reserved. | Delivering Happiness One Flower at a Time 🌸</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Filter returns function
+        function filterReturns() {
+            const status = document.getElementById('statusFilter').value;
+            const dateRange = document.getElementById('dateFilter').value;
+            const returns = document.querySelectorAll('.return-card');
+            
+            returns.forEach(ret => {
+                const retStatus = ret.dataset.status;
+                const retDate = new Date(ret.dataset.date);
+                
+                let statusMatch = status === 'all' || retStatus === status;
+                
+                let dateMatch = true;
+                if (dateRange !== 'all') {
+                    const daysAgo = parseInt(dateRange);
+                    const cutoffDate = new Date();
+                    cutoffDate.setDate(cutoffDate.getDate() - daysAgo);
+                    dateMatch = retDate >= cutoffDate;
+                }
+                
+                if (statusMatch && dateMatch) {
+                    ret.style.display = 'block';
+                } else {
+                    ret.style.display = 'none';
+                }
+            });
+            
+            checkEmptyState();
+        }
+
+        // Reset filters function
+        function resetFilters() {
+            document.getElementById('statusFilter').value = 'all';
+            document.getElementById('dateFilter').value = 'all';
+            
+            document.querySelectorAll('.return-card').forEach(ret => {
+                ret.style.display = 'block';
+            });
+            
+            checkEmptyState();
+        }
+
+        // Check if any returns are visible
+        function checkEmptyState() {
+            const visibleReturns = document.querySelectorAll('.return-card[style="display: block;"]').length;
+            const emptyState = document.getElementById('emptyState');
+            
+            if (visibleReturns === 0) {
+                emptyState.style.display = 'block';
+            } else {
+                emptyState.style.display = 'none';
+            }
+        }
+
+        // Return request functions
+        function openReturnModal() {
+            document.getElementById('returnModal').style.display = 'block';
+        }
+
+        function closeReturnModal() {
+            document.getElementById('returnModal').style.display = 'none';
+        }
+
+        function submitReturn() {
+            const order = document.getElementById('orderSelect').value;
+            const reason = document.getElementById('reasonSelect').value;
+            const explanation = document.getElementById('returnReason').value;
+            const terms = document.getElementById('agreeTerms').checked;
+            
+            if (!order || !reason || !explanation || !terms) {
+                alert('Please fill all required fields and agree to terms');
+                return;
+            }
+            
+            alert('Return request submitted successfully!');
+            closeReturnModal();
+        }
+
+        // Action functions
+        function cancelReturn(returnId) {
+            if (confirm(`Cancel return request ${returnId}?`)) {
+                alert('Return request cancelled');
+            }
+        }
+
+        function contactSupport(returnId) {
+            alert(`Contacting support for ${returnId}`);
+        }
+
+        function viewRefundStatus(returnId) {
+            alert(`Refund status for ${returnId}`);
+        }
+
+        function reschedulePickup(returnId) {
+            alert(`Reschedule pickup for ${returnId}`);
+        }
+
+        function trackPickup(returnId) {
+            alert(`Tracking pickup for ${returnId}`);
+        }
+
+        function viewImage(imageId) {
+            alert(`Viewing image ${imageId}`);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('returnModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Update cart count from localStorage
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const count = cart.reduce((total, item) => total + (item.quantity || 1), 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Florist - Premium Bouquets</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-seedling"></i> Java Florist
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html"><i class="fas fa-info-circle"></i> About Flowers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="bouquet.html"><i class="fas fa-seedling"></i> Bouquets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="myaccount.html"><i class="fas fa-user"></i> My Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link cart-icon" href="cart.html">
+                            <i class="fas fa-shopping-cart"></i> Cart
+                            <span class="cart-badge" id="cartCount">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="florist-registration.html"><i class="fas fa-store"></i> Partner Registration</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Bouquets Header -->
+    <div class="bouquets-header">
+        <div class="container">
+            <h1><i class="fas fa-seedling"></i> Our Premium Bouquets</h1>
+            <p>Discover our stunning collection of handcrafted bouquets for every occasion</p>
+        </div>
+    </div>
+
+    <!-- Bouquets Container -->
+    <div class="bouquets-container">
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <h3><i class="fas fa-filter"></i> Filter Bouquets</h3>
+            <div class="filter-controls">
+                <select class="filter-select" id="occasionFilter" onchange="filterBouquets()">
+                    <option value="all">🎉 All Occasions</option>
+                    <option value="birthday">🎂 Birthday</option>
+                    <option value="wedding">💍 Wedding</option>
+                    <option value="anniversary">💕 Anniversary</option>
+                    <option value="newbaby">👶 New Baby</option>
+                    <option value="thankyou">🙏 Thank You</option>
+                    <option value="fathersday">👨 Father's Day</option>
+                    <option value="mothersday">👩 Mother's Day</option>
+                    <option value="getwell">🤒 Get Well Soon</option>
+                    <option value="romance">❤️ Romance</option>
+                    <option value="sympathy">🕊️ Sympathy</option>
+                </select>
+                
+                <select class="filter-select" id="priceFilter" onchange="filterBouquets()">
+                    <option value="all">💰 All Prices</option>
+                    <option value="0-500">Under ₹500</option>
+                    <option value="500-1000">₹500 - ₹1000</option>
+                    <option value="1000-2000">₹1000 - ₹2000</option>
+                    <option value="2000+">Above ₹2000</option>
+                </select>
+                
+                <button class="filter-btn" onclick="resetFilters()">
+                    <i class="fas fa-undo-alt"></i> Reset Filters
+                </button>
+            </div>
+            
+            <!-- Active Filters -->
+            <div class="active-filters" id="activeFilters"></div>
+        </div>
+
+        <!-- Sort Section -->
+        <div class="sort-section">
+            <div class="result-count" id="resultCount">
+                Showing <strong>12</strong> bouquets
+            </div>
+            <div class="sort-options">
+                <label for="sortBy">Sort by:</label>
+                <select class="sort-select" id="sortBy" onchange="sortBouquets()">
+                    <option value="popular">Most Popular</option>
+                    <option value="newest">Newest First</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="name-asc">Name: A to Z</option>
+                    <option value="name-desc">Name: Z to A</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Bouquets Grid -->
+        <div class="bouquets-grid" id="bouquetsGrid">
+            <!-- Bouquet cards will be loaded here -->
+        </div>
+
+        <!-- Loading Spinner (hidden by default) -->
+        <div class="loading-spinner" id="loadingSpinner" style="display: none;">
+            <div class="spinner"></div>
+            <p style="margin-top: 1rem;">Loading bouquets...</p>
+        </div>
+
+        <!-- Empty State (hidden by default) -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <i class="fas fa-seedling"></i>
+            <h3>No Bouquets Found</h3>
+            <p>We couldn't find any bouquets matching your filters. Try adjusting your criteria.</p>
+            <button class="filter-btn" onclick="resetFilters()">Clear Filters</button>
+        </div>
+
+        <!-- Pagination -->
+        <ul class="pagination" id="pagination">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div id="quickViewModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body" id="modalBody">
+                <!-- Modal content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-seedling"></i> Java Florist</h4>
+                    <p>Your trusted partner for expressing wishes through flowers. Same day delivery in Mumbai and nationwide through our trusted network.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Flowers</a>
+                    <a href="myaccount.html">My Account</a>
+                    <a href="cart.html">View Cart</a>
+                    <a href="florist-registration.html">Partner Registration</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Occasions</h4>
+                    <a href="bouquet.html?occasion=birthday">Birthday</a>
+                    <a href="bouquet.html?occasion=wedding">Wedding</a>
+                    <a href="bouquet.html?occasion=newbaby">New Baby</a>
+                    <a href="bouquet.html?occasion=thankyou">Thank You</a>
+                    <a href="bouquet.html?occasion=fathersday">Father's Day</a>
+                    <a href="bouquet.html?occasion=mothersday">Mother's Day</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Mumbai, India</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-envelope"></i> info@javaflorist.com</p>
+                    <p><i class="fas fa-clock"></i> Mon-Sun: 9 AM - 9 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Java Florist. All rights reserved. | Delivering Happiness One Flower at a Time 🌸</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sample bouquet data
+        const bouquets = [
+            {
+                id: 1,
+                name: "Red Rose Elegance",
+                category: "birthday",
+                occasion: "birthday",
+                price: 1299,
+                oldPrice: 1599,
+                rating: 4.5,
+                reviews: 128,
+                description: "12 stunning red roses with fresh greenery, perfect for expressing love and passion.",
+                image: "https://images.unsplash.com/photo-1561181286-d3fee6576739?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                isNew: false,
+                isBestSeller: true,
+                discount: 20
+            },
+            {
+                id: 2,
+                name: "Sunshine Delight",
+                category: "birthday",
+                occasion: "birthday",
+                price: 899,
+                oldPrice: 1099,
+                rating: 4.3,
+                reviews: 95,
+                description: "Bright sunflowers arrangement that brings joy and happiness to any occasion.",
+                image: "https://images.unsplash.com/photo-1591117207239-788bf8de6c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                isNew: true,
+                isBestSeller: false,
+                discount: 18
+            },
+            {
+                id: 3,
+                name: "Spring Garden",
+                category: "wedding",
+                occasion: "wedding",
+                price: 1499,
+                oldPrice: 1799,
+                rating: 4.7,
+                reviews: 156,
+                description: "Colorful mix of seasonal flowers in a beautiful arrangement for weddings.",
+                image: "https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                isNew: false,
+                isBestSeller: true,
+                discount: 16
+            },
+            {
+                id: 4,
+                name: "White Lily Perfection",
+                category: "wedding",
+                occasion: "wedding",
+                price: 1199,
+                oldPrice: 1499,
+                rating: 4.6,
+                reviews: 88,
+                description: "Elegant white lilies for special occasions and celebrations.",
+                image: "https://images.unsplash.com/photo-1530103043960-ef38714abb7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                isNew: false,
+                isBestSeller: false,
+                discount: 20
+            },
+            {
+                id: 5,
+                name: "Baby's Breath",
+                category: "newbaby",
+                occasion: "newbaby",
+                price: 699,
+                oldPrice: 899,
+                rating: 4.4,
+                reviews: 67,
+                description: "Soft pastel flowers perfect for welcoming a new baby.",
+                image: "https://images.unsplash.com/photo-1526047934-90e6c70e6f9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                isNew: true,
+                isBestSeller: false,
+                discount: 22
+            },
+            {
+                id: 6,
+                name: "Thanks a Million",
+                category: "thankyou",
+                occasion: "thankyou",
+                price: 799,
+                oldPrice: 999,
+                rating: 4.5,
+                reviews: 72,
+                description: "Bright and cheerful arrangement to express your gratitude.",
+                image: "https://images.unsplash.com/photo-1545127398-14699f92334b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                isNew: false,
+                isBestSeller: true,
+                discount: 20
+            },
+            {
+                id: 7,
+                name: "Father's Day Special",
+                category: "fathersday",
+                occasion: "fathersday",
+                price: 899,
+                oldPrice: 1099,
+                rating: 4.3,
+                reviews: 45,
+                description: "Sophisticated arrangement for celebrating dad.",
+                image: "https://images.unsplash.com/photo-1591117207239-788bf8de6c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                isNew: false,
+                isBestSeller: false,
+                discount: 18
+            },
+            {
+                id: 8,
+                name: "Mother's Day Love",
+                category: "mothersday",
+                occasion: "mothersday",
+                price: 999,
+                oldPrice: 1299,
+                rating: 4.8,
+                reviews: 112,
+                description: "Beautiful flowers to show love to mom.",
+                image: "https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                isNew: true,
+                isBestSeller: true,
+                discount: 23
+            },
+            {
+                id: 9,
+                name: "Get Well Wishes",
+                category: "getwell",
+                occasion: "getwell",
+                price: 699,
+                oldPrice: 799,
+                rating: 4.2,
+                reviews: 34,
+                description: "Bright flowers to cheer up someone recovering.",
+                image: "https://images.unsplash.com/photo-1530103043960-ef38714abb7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                isNew: false,
+                isBestSeller: false,
+                discount: 12
+            }
+        ];
+
+        // Display bouquets on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            displayBouquets(bouquets);
+            updateCartCount();
+            
+            // Get occasion from URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const occasion = urlParams.get('occasion');
+            if (occasion) {
+                document.getElementById('occasionFilter').value = occasion;
+                filterBouquets();
+            }
+        });
+
+        // Display bouquets function
+        function displayBouquets(bouquetsToShow) {
+            const grid = document.getElementById('bouquetsGrid');
+            
+            if (bouquetsToShow.length === 0) {
+                document.getElementById('emptyState').style.display = 'block';
+                grid.innerHTML = '';
+                return;
+            }
+            
+            document.getElementById('emptyState').style.display = 'none';
+            document.getElementById('resultCount').innerHTML = `Showing <strong>${bouquetsToShow.length}</strong> bouquets`;
+            
+            let html = '';
+            bouquetsToShow.forEach(bouquet => {
+                // Calculate discount percentage
+                const discount = bouquet.oldPrice ? Math.round((1 - bouquet.price/bouquet.oldPrice) * 100) : 0;
+                
+                html += `
+                    <div class="bouquet-card" data-id="${bouquet.id}" data-category="${bouquet.category}" data-price="${bouquet.price}" data-name="${bouquet.name}">
+                        ${bouquet.isNew ? '<span class="bouquet-badge badge-new">New</span>' : ''}
+                        ${bouquet.isBestSeller ? '<span class="bouquet-badge badge-seller">Best Seller</span>' : ''}
+                        <div class="wishlist-btn" onclick="toggleWishlist(this)">
+                            <i class="far fa-heart"></i>
+                        </div>
+                        <img src="${bouquet.image}" alt="${bouquet.name}" class="bouquet-image">
+                        <div class="bouquet-info">
+                            <div class="bouquet-category">${bouquet.occasion.charAt(0).toUpperCase() + bouquet.occasion.slice(1)}</div>
+                            <h4 class="bouquet-name">${bouquet.name}</h4>
+                            <p class="bouquet-description">${bouquet.description.substring(0, 80)}...</p>
+                            <div class="bouquet-rating">
+                                <div class="stars">
+                                    ${getStarsHtml(bouquet.rating)}
+                                </div>
+                                <span class="rating-count">(${bouquet.reviews} reviews)</span>
+                            </div>
+                            <div class="bouquet-price">
+                                <span class="current-price">₹${bouquet.price.toLocaleString()}</span>
+                                ${bouquet.oldPrice ? `<span class="old-price">₹${bouquet.oldPrice.toLocaleString()}</span>` : ''}
+                                ${bouquet.oldPrice ? `<span class="discount-badge">${discount}% OFF</span>` : ''}
+                            </div>
+                            <div class="bouquet-actions">
+                                <button class="add-to-cart-btn" onclick="addToCart(${bouquet.id}, '${bouquet.name}', ${bouquet.price})">
+                                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                                </button>
+                                <button class="quick-view-btn" onclick="quickView(${bouquet.id})">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            grid.innerHTML = html;
+        }
+
+        // Helper function to generate star rating HTML
+        function getStarsHtml(rating) {
+            const fullStars = Math.floor(rating);
+            const halfStar = rating % 1 >= 0.5;
+            let stars = '';
+            
+            for (let i = 0; i < fullStars; i++) {
+                stars += '<i class="fas fa-star"></i>';
+            }
+            if (halfStar) {
+                stars += '<i class="fas fa-star-half-alt"></i>';
+            }
+            const emptyStars = 5 - Math.ceil(rating);
+            for (let i = 0; i < emptyStars; i++) {
+                stars += '<i class="far fa-star"></i>';
+            }
+            return stars;
+        }
+
+        // Filter bouquets function
+        function filterBouquets() {
+            const occasion = document.getElementById('occasionFilter').value;
+            const priceRange = document.getElementById('priceFilter').value;
+            
+            let filtered = [...bouquets];
+            
+            // Filter by occasion
+            if (occasion !== 'all') {
+                filtered = filtered.filter(b => b.category === occasion);
+            }
+            
+            // Filter by price range
+            if (priceRange !== 'all') {
+                const [min, max] = priceRange.split('-').map(Number);
+                if (priceRange === '2000+') {
+                    filtered = filtered.filter(b => b.price >= 2000);
+                } else {
+                    filtered = filtered.filter(b => b.price >= min && b.price <= max);
+                }
+            }
+            
+            displayBouquets(filtered);
+            updateActiveFilters(occasion, priceRange);
+        }
+
+        // Update active filters display
+        function updateActiveFilters(occasion, priceRange) {
+            const container = document.getElementById('activeFilters');
+            let html = '';
+            
+            if (occasion !== 'all') {
+                const occasionNames = {
+                    birthday: 'Birthday',
+                    wedding: 'Wedding',
+                    anniversary: 'Anniversary',
+                    newbaby: 'New Baby',
+                    thankyou: 'Thank You',
+                    fathersday: 'Father\'s Day',
+                    mothersday: 'Mother\'s Day',
+                    getwell: 'Get Well Soon',
+                    romance: 'Romance',
+                    sympathy: 'Sympathy'
+                };
+                html += `<span class="filter-tag">${occasionNames[occasion]} <i class="fas fa-times" onclick="removeFilter('occasion')"></i></span>`;
+            }
+            
+            if (priceRange !== 'all') {
+                let priceText = priceRange;
+                if (priceRange === '2000+') {
+                    priceText = 'Above ₹2000';
+                } else {
+                    const [min, max] = priceRange.split('-');
+                    priceText = `₹${min} - ₹${max}`;
+                }
+                html += `<span class="filter-tag">${priceText} <i class="fas fa-times" onclick="removeFilter('price')"></i></span>`;
+            }
+            
+            container.innerHTML = html;
+        }
+
+        // Remove specific filter
+        function removeFilter(filterType) {
+            if (filterType === 'occasion') {
+                document.getElementById('occasionFilter').value = 'all';
+            } else if (filterType === 'price') {
+                document.getElementById('priceFilter').value = 'all';
+            }
+            filterBouquets();
+        }
+
+        // Reset all filters
+        function resetFilters() {
+            document.getElementById('occasionFilter').value = 'all';
+            document.getElementById('priceFilter').value = 'all';
+            document.getElementById('sortBy').value = 'popular';
+            displayBouquets(bouquets);
+            document.getElementById('activeFilters').innerHTML = '';
+        }
+
+        // Sort bouquets
+        function sortBouquets() {
+            const sortBy = document.getElementById('sortBy').value;
+            const grid = document.getElementById('bouquetsGrid');
+            const cards = Array.from(grid.children);
+            
+            cards.sort((a, b) => {
+                const priceA = parseFloat(a.dataset.price);
+                const priceB = parseFloat(b.dataset.price);
+                const nameA = a.dataset.name.toLowerCase();
+                const nameB = b.dataset.name.toLowerCase();
+                
+                switch(sortBy) {
+                    case 'price-low':
+                        return priceA - priceB;
+                    case 'price-high':
+                        return priceB - priceA;
+                    case 'name-asc':
+                        return nameA.localeCompare(nameB);
+                    case 'name-desc':
+                        return nameB.localeCompare(nameA);
+                    default:
+                        return 0;
+                }
+            });
+            
+            grid.innerHTML = '';
+            cards.forEach(card => grid.appendChild(card));
+        }
+
+        // Add to cart function
+        function addToCart(id, name, price) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            const existingItem = cart.find(item => item.id === id);
+            if (existingItem) {
+                existingItem.quantity = (existingItem.quantity || 1) + 1;
+            } else {
+                cart.push({ id, name, price, quantity: 1 });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            
+            // Show notification
+            showNotification(`${name} added to cart!`);
+        }
+
+        // Update cart count
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const count = cart.reduce((total, item) => total + (item.quantity || 1), 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+
+        // Show notification
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 15px var(--shadow-color);
+                z-index: 9999;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Quick view function
+        function quickView(id) {
+            const bouquet = bouquets.find(b => b.id === id);
+            const modal = document.getElementById('quickViewModal');
+            const modalBody = document.getElementById('modalBody');
+            
+            modalBody.innerHTML = `
+                <img src="${bouquet.image}" alt="${bouquet.name}" class="modal-image">
+                <div class="modal-details">
+                    <h2>${bouquet.name}</h2>
+                    <div class="price">₹${bouquet.price.toLocaleString()}</div>
+                    ${bouquet.oldPrice ? `<div style="color: #999; text-decoration: line-through; margin-bottom: 1rem;">₹${bouquet.oldPrice.toLocaleString()}</div>` : ''}
+                    <div class="description">${bouquet.description}</div>
+                    <div class="bouquet-rating" style="margin-bottom: 1rem;">
+                        <div class="stars">${getStarsHtml(bouquet.rating)}</div>
+                        <span class="rating-count">${bouquet.reviews} reviews</span>
+                    </div>
+                    <div class="quantity-selector">
+                        <button class="quantity-btn" onclick="updateModalQuantity(-1)">-</button>
+                        <input type="text" class="quantity-input" id="modalQuantity" value="1" readonly>
+                        <button class="quantity-btn" onclick="updateModalQuantity(1)">+</button>
+                    </div>
+                    <button class="add-to-cart-btn" style="width: 100%;" onclick="addFromModal(${bouquet.id}, '${bouquet.name}', ${bouquet.price})">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                </div>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        let modalQuantity = 1;
+
+        function updateModalQuantity(change) {
+            modalQuantity = Math.max(1, modalQuantity + change);
+            document.getElementById('modalQuantity').value = modalQuantity;
+        }
+
+        function addFromModal(id, name, price) {
+            for (let i = 0; i < modalQuantity; i++) {
+                addToCart(id, name, price);
+            }
+            document.getElementById('quickViewModal').style.display = 'none';
+            modalQuantity = 1;
+        }
+
+        // Toggle wishlist
+        function toggleWishlist(element) {
+            element.classList.toggle('active');
+            const icon = element.querySelector('i');
+            if (icon.classList.contains('far')) {
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+                showNotification('Added to wishlist!');
+            } else {
+                icon.classList.remove('fas');
+                icon.classList.add('far');
+            }
+        }
+
+        // Close modal when clicking outside or on close button
+        window.onclick = function(event) {
+            const modal = document.getElementById('quickViewModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        document.querySelector('.close-modal').onclick = function() {
+            document.getElementById('quickViewModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

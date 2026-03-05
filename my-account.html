@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Florist - My Account</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS (jisme aapne upar diya hua code hai) -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-seedling"></i> Java Florist
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html"><i class="fas fa-info-circle"></i> About Flowers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="myaccount.html"><i class="fas fa-user"></i> My Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link cart-icon" href="cart.html">
+                            <i class="fas fa-shopping-cart"></i> Cart
+                            <span class="cart-badge">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="florist-registration.html"><i class="fas fa-store"></i> Florist Registration</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="text-center py-5">
+        <div class="container">
+            <h1>👤 My Account</h1>
+            <p class="lead">Manage your profile, orders, and preferences</p>
+        </div>
+    </header>
+
+    <!-- Account Tabs -->
+    <section class="py-5">
+        <div class="account-container">
+            <div class="account-tabs">
+                <button class="account-tab active" onclick="showTab('profile')">👤 Profile</button>
+                <button class="account-tab" onclick="showTab('orders')">📦 My Orders</button>
+                <button class="account-tab" onclick="showTab('messages')">💬 Message Templates</button>
+                <button class="account-tab" onclick="showTab('delivery')">🚚 New Order</button>
+            </div>
+
+            <!-- Profile Tab -->
+            <div id="profileTab" class="account-card">
+                <div class="account-card-header">
+                    <h3><i class="fas fa-id-card"></i> Profile Information</h3>
+                    <span class="badge">Verified</span>
+                </div>
+                
+                <div class="profile-info">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="profile-details">
+                        <h4>John Doe</h4>
+                        <p><i class="fas fa-envelope"></i> john.doe@email.com</p>
+                        <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                        <p><i class="fas fa-map-marker-alt"></i> 123, Green Park, Mumbai - 400001</p>
+                        <p><i class="fas fa-calendar"></i> Member since: March 2025</p>
+                    </div>
+                </div>
+                
+                <a href="#" class="btn btn-outline-primary"><i class="fas fa-edit"></i> Edit Profile</a>
+            </div>
+
+            <!-- Orders Tab (Hidden by default) -->
+            <div id="ordersTab" style="display: none;">
+                <div class="account-card">
+                    <div class="account-card-header">
+                        <h3><i class="fas fa-history"></i> My Orders</h3>
+                        <span class="badge">Last 30 days</span>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="orders-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Date</th>
+                                    <th>Items</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Delivery Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#1001</td>
+                                    <td>28 Feb 2026</td>
+                                    <td>Red Rose Bouquet (2)</td>
+                                    <td>₹1,598</td>
+                                    <td><span class="order-status delivered">Delivered</span></td>
+                                    <td>28 Feb 2026</td>
+                                    <td><a href="#" class="btn btn-sm btn-outline-primary">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#1002</td>
+                                    <td>25 Feb 2026</td>
+                                    <td>Sunflower Delight (1)</td>
+                                    <td>₹899</td>
+                                    <td><span class="order-status delivered">Delivered</span></td>
+                                    <td>25 Feb 2026</td>
+                                    <td><a href="#" class="btn btn-sm btn-outline-primary">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#1003</td>
+                                    <td>01 Mar 2026</td>
+                                    <td>Wedding Elegance (1)</td>
+                                    <td>₹1,499</td>
+                                    <td><span class="order-status processing">Processing</span></td>
+                                    <td>02 Mar 2026</td>
+                                    <td><a href="#" class="btn btn-sm btn-outline-primary">View</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Message Templates Tab -->
+            <div id="messagesTab" style="display: none;">
+                <div class="account-card">
+                    <div class="account-card-header">
+                        <h3><i class="fas fa-comment"></i> Message Templates</h3>
+                        <span class="badge">Choose or customize</span>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label"><i class="fas fa-calendar"></i> Select Occasion</label>
+                        <select class="form-control">
+                            <option>Choose an occasion...</option>
+                            <option>Birthday</option>
+                            <option>Wedding</option>
+                            <option>New Baby</option>
+                            <option>Thank You</option>
+                            <option>Father's Day</option>
+                            <option>Mother's Day</option>
+                            <option>Anniversary</option>
+                            <option>Get Well Soon</option>
+                        </select>
+                    </div>
+                    
+                    <div class="message-templates">
+                        <div class="message-card">
+                            <h5>Message 1</h5>
+                            <p>Happy Birthday! May your day be filled with joy and beautiful moments.</p>
+                        </div>
+                        <div class="message-card">
+                            <h5>Message 2</h5>
+                            <p>Wishing you a fantastic birthday and a wonderful year ahead!</p>
+                        </div>
+                        <div class="message-card">
+                            <h5>Message 3</h5>
+                            <p>Another year older, another year wiser. Happy Birthday!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label"><i class="fas fa-pen"></i> Your Custom Message</label>
+                        <textarea class="form-control" rows="3" placeholder="Write your own message..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- New Order / Delivery Tab -->
+            <div id="deliveryTab" style="display: none;">
+                <div class="delivery-form">
+                    <h3 class="mb-4"><i class="fas fa-truck"></i> New Delivery Order</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> Recipient Name *</label>
+                            <input type="text" class="form-control" placeholder="Enter recipient name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-phone"></i> Phone Number *</label>
+                            <input type="tel" class="form-control" placeholder="Enter phone number">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-map-marker-alt"></i> Delivery Address *</label>
+                        <textarea class="form-control" rows="2" placeholder="Enter complete address"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar"></i> Occasion</label>
+                            <select class="form-control">
+                                <option>Select Occasion</option>
+                                <option>Birthday</option>
+                                <option>Wedding</option>
+                                <option>New Baby</option>
+                                <option>Thank You</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-comment"></i> Choose Message</label>
+                            <select class="form-control">
+                                <option>Select a message...</option>
+                                <option>Happy Birthday! May your day be filled with joy.</option>
+                                <option>Congratulations on your wedding!</option>
+                                <option>Welcome to the world, little one!</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-pen"></i> Your Message</label>
+                        <textarea class="form-control" rows="3" placeholder="Write your personal message here..."></textarea>
+                    </div>
+                    
+                    <!-- Delivery Time Info -->
+                    <div class="delivery-time-info">
+                        <i class="fas fa-clock"></i>
+                        <strong>Delivery Time:</strong> Order within next 4 hours for same day delivery (9 AM - 9 PM)
+                    </div>
+                    
+                    <button class="btn btn-primary w-100">
+                        <i class="fas fa-credit-card"></i> Pay with Credit Card
+                    </button>
+                </div>
+            </div>
+
+            <!-- Logout Button -->
+            <div class="text-end mt-4">
+                <a href="index.html" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-seedling"></i> Java Florist</h4>
+                    <p>Your trusted partner for expressing wishes through flowers. Same day delivery in Mumbai and nationwide through our trusted network.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Flowers</a>
+                    <a href="my-account.html">My Account</a>
+                    <a href="cart.html">View Cart</a>
+                    <a href="florist-registration.html">Florist Registration</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Occasions</h4>
+                    <a href="#">Birthday</a>
+                    <a href="#">Wedding</a>
+                    <a href="#">New Baby</a>
+                    <a href="#">Thank You</a>
+                    <a href="#">Father's Day</a>
+                    <a href="#">Mother's Day</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Mumbai, India</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-envelope"></i> info@javaflorist.com</p>
+                    <p><i class="fas fa-clock"></i> Mon-Sun: 9 AM - 9 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Java Florist. All rights reserved. | Delivering Happiness One Flower at a Time 🌸</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Simple JavaScript for Tab Switching (Optional) -->
+    <script>
+        function showTab(tabName) {
+            // Hide all tabs
+            document.getElementById('profileTab').style.display = 'none';
+            document.getElementById('ordersTab').style.display = 'none';
+            document.getElementById('messagesTab').style.display = 'none';
+            document.getElementById('deliveryTab').style.display = 'none';
+            
+            // Show selected tab
+            document.getElementById(tabName + 'Tab').style.display = 'block';
+            
+            // Update active class
+            document.querySelectorAll('.account-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

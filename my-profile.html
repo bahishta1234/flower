@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Florist - My Profile</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-seedling"></i> Java Florist
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html"><i class="fas fa-info-circle"></i> About Flowers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="bouquet.html"><i class="fas fa-seedling"></i> Bouquets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="my-profile.html"><i class="fas fa-user-circle"></i> My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="my-orders.html"><i class="fas fa-box"></i> My Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link cart-icon" href="cart.html">
+                            <i class="fas fa-shopping-cart"></i> Cart
+                            <span class="cart-badge" id="cartCount">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Header -->
+    <div class="profile-header">
+        <div class="container">
+            <h1><i class="fas fa-user-circle"></i> My Profile</h1>
+            <p>Manage your personal information, addresses, and preferences</p>
+        </div>
+    </div>
+
+    <!-- Profile Container -->
+    <div class="profile-container">
+        <div class="profile-layout">
+            <!-- Profile Sidebar -->
+            <div class="profile-sidebar">
+                <div class="profile-avatar-section">
+                    <div class="profile-avatar" onclick="document.getElementById('avatarInput').click()">
+                        <i class="fas fa-user-circle"></i>
+                        <div class="avatar-upload">
+                            <i class="fas fa-camera"></i>
+                            <input type="file" id="avatarInput" accept="image/*" onchange="previewAvatar(this)">
+                        </div>
+                    </div>
+                    <div class="profile-name">Rahul Sharma</div>
+                    <div class="profile-email">rahul.sharma@email.com</div>
+                    <span class="profile-badge"><i class="fas fa-check-circle"></i> Verified</span>
+                </div>
+                
+                <div class="profile-nav">
+                    <div class="profile-nav-item active" onclick="showProfileTab('personal')">
+                        <i class="fas fa-user"></i>
+                        <span>Personal Information</span>
+                    </div>
+                    <div class="profile-nav-item" onclick="showProfileTab('addresses')">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Saved Addresses</span>
+                        <span class="nav-badge">3</span>
+                    </div>
+                    <div class="profile-nav-item" onclick="showProfileTab('orders')">
+                        <i class="fas fa-box"></i>
+                        <span>Order History</span>
+                        <span class="nav-badge">12</span>
+                    </div>
+                    <div class="profile-nav-item" onclick="showProfileTab('preferences')">
+                        <i class="fas fa-sliders-h"></i>
+                        <span>Preferences</span>
+                    </div>
+                    <div class="profile-nav-item" onclick="showProfileTab('security')">
+                        <i class="fas fa-lock"></i>
+                        <span>Security</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Content -->
+            <div class="profile-content">
+                <!-- Success Message -->
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Profile updated successfully!</span>
+                </div>
+
+                <!-- Personal Information Tab -->
+                <div id="personalTab" class="profile-tab">
+                    <div class="content-header">
+                        <h2><i class="fas fa-user-edit"></i> Personal Information</h2>
+                        <button class="btn btn-secondary" onclick="editProfile()">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                    </div>
+                    
+                    <form class="profile-form" id="profileForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-user"></i> First Name</label>
+                                <input type="text" id="firstName" value="Rahul" disabled>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label><i class="fas fa-user"></i> Last Name</label>
+                                <input type="text" id="lastName" value="Sharma" disabled>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-envelope"></i> Email Address</label>
+                                <input type="email" id="email" value="rahul.sharma@email.com" disabled>
+                                <small class="text-muted">Email cannot be changed</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label><i class="fas fa-phone"></i> Phone Number</label>
+                                <input type="tel" id="phone" value="+91 98765 43210" disabled>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar"></i> Date of Birth</label>
+                            <input type="date" id="dob" value="1990-01-15" disabled>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-venus-mars"></i> Gender</label>
+                            <select id="gender" disabled>
+                                <option value="male" selected>Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-actions" id="profileActions" style="display: none;">
+                            <button type="button" class="btn btn-secondary" onclick="cancelEditProfile()">
+                                <i class="fas fa-times"></i> Cancel
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="saveProfile()">
+                                <i class="fas fa-save"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Addresses Tab -->
+                <div id="addressesTab" class="profile-tab" style="display: none;">
+                    <div class="content-header">
+                        <h2><i class="fas fa-map-marker-alt"></i> Saved Addresses</h2>
+                        <button class="btn btn-primary" onclick="addNewAddress()">
+                            <i class="fas fa-plus"></i> Add New
+                        </button>
+                    </div>
+                    
+                    <div class="address-grid">
+                        <div class="address-card default">
+                            <span class="address-badge">Default</span>
+                            <div class="address-name">Home</div>
+                            <div class="address-details">
+                                123, Green Park, Andheri East,<br>
+                                Mumbai - 400001, Maharashtra
+                            </div>
+                            <div class="address-phone">
+                                <i class="fas fa-phone"></i> +91 98765 43210
+                            </div>
+                            <div class="address-actions">
+                                <button class="address-action-btn" onclick="editAddress(1)">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="address-action-btn" onclick="setDefaultAddress(1)">
+                                    <i class="fas fa-check-circle"></i> Set Default
+                                </button>
+                                <button class="address-action-btn delete" onclick="deleteAddress(1)">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="address-card">
+                            <div class="address-name">Office</div>
+                            <div class="address-details">
+                                456, Business Hub, Bandra Kurla Complex,<br>
+                                Mumbai - 400051, Maharashtra
+                            </div>
+                            <div class="address-phone">
+                                <i class="fas fa-phone"></i> +91 98765 43211
+                            </div>
+                            <div class="address-actions">
+                                <button class="address-action-btn" onclick="editAddress(2)">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="address-action-btn" onclick="setDefaultAddress(2)">
+                                    <i class="fas fa-check-circle"></i> Set Default
+                                </button>
+                                <button class="address-action-btn delete" onclick="deleteAddress(2)">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="address-card">
+                            <div class="address-name">Parent's Home</div>
+                            <div class="address-details">
+                                789, Green Avenue, Pune - 411001,<br>
+                                Maharashtra
+                            </div>
+                            <div class="address-phone">
+                                <i class="fas fa-phone"></i> +91 98765 43212
+                            </div>
+                            <div class="address-actions">
+                                <button class="address-action-btn" onclick="editAddress(3)">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="address-action-btn" onclick="setDefaultAddress(3)">
+                                    <i class="fas fa-check-circle"></i> Set Default
+                                </button>
+                                <button class="address-action-btn delete" onclick="deleteAddress(3)">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="add-address-card" onclick="addNewAddress()">
+                            <i class="fas fa-plus-circle"></i>
+                            <h4>Add New Address</h4>
+                            <p>Click to add a new delivery address</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order History Tab -->
+                <div id="ordersTab" class="profile-tab" style="display: none;">
+                    <div class="content-header">
+                        <h2><i class="fas fa-history"></i> Recent Orders</h2>
+                        <a href="my-orders.html" class="btn btn-secondary">View All</a>
+                    </div>
+                    
+                    <div class="order-history-card" onclick="window.location.href='order-details.html?id=1'">
+                        <div class="order-history-header">
+                            <span class="order-id">#ORD-2026-001</span>
+                            <span class="order-date">01 March 2026</span>
+                        </div>
+                        <div class="order-history-items">
+                            <div class="history-item-image">
+                                <img src="https://images.unsplash.com/photo-1561181286-d3fee6576739?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Rose">
+                            </div>
+                            <div class="history-item-details">
+                                <div class="history-item-name">Red Rose Elegance (2)</div>
+                                <div class="history-item-meta">
+                                    <span>₹2,598</span>
+                                    <span>✅ Delivered</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order-history-footer">
+                            <span class="order-total">Total: ₹3,722</span>
+                            <span class="order-status-badge status-delivered">Delivered</span>
+                        </div>
+                    </div>
+                    
+                    <div class="order-history-card" onclick="window.location.href='order-details.html?id=2'">
+                        <div class="order-history-header">
+                            <span class="order-id">#ORD-2026-002</span>
+                            <span class="order-date">05 March 2026</span>
+                        </div>
+                        <div class="order-history-items">
+                            <div class="history-item-image">
+                                <img src="https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Mixed">
+                            </div>
+                            <div class="history-item-details">
+                                <div class="history-item-name">Spring Garden (1)</div>
+                                <div class="history-item-meta">
+                                    <span>₹1,499</span>
+                                    <span>⚙️ Processing</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order-history-footer">
+                            <span class="order-total">Total: ₹2,883</span>
+                            <span class="order-status-badge status-processing">Processing</span>
+                        </div>
+                    </div>
+                    
+                    <div class="order-history-card" onclick="window.location.href='order-details.html?id=3'">
+                        <div class="order-history-header">
+                            <span class="order-id">#ORD-2026-003</span>
+                            <span class="order-date">06 March 2026</span>
+                        </div>
+                        <div class="order-history-items">
+                            <div class="history-item-image">
+                                <img src="https://images.unsplash.com/photo-1545127398-14699f92334b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Thanks">
+                            </div>
+                            <div class="history-item-details">
+                                <div class="history-item-name">Thanks a Million (1)</div>
+                                <div class="history-item-meta">
+                                    <span>₹799</span>
+                                    <span>⏳ Pending</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order-history-footer">
+                            <span class="order-total">Total: ₹889</span>
+                            <span class="order-status-badge status-pending">Pending</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preferences Tab -->
+                <div id="preferencesTab" class="profile-tab" style="display: none;">
+                    <div class="content-header">
+                        <h2><i class="fas fa-sliders-h"></i> Preferences</h2>
+                    </div>
+                    
+                    <div class="preferences-grid">
+                        <div class="preference-card">
+                            <div class="preference-title">
+                                <i class="fas fa-language"></i>
+                                Language
+                            </div>
+                            <div class="preference-options">
+                                <label class="preference-option">
+                                    <input type="radio" name="language" value="english" checked> English
+                                </label>
+                                <label class="preference-option">
+                                    <input type="radio" name="language" value="hindi"> हिन्दी
+                                </label>
+                                <label class="preference-option">
+                                    <input type="radio" name="language" value="marathi"> मराठी
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="preference-card">
+                            <div class="preference-title">
+                                <i class="fas fa-rupee-sign"></i>
+                                Currency
+                            </div>
+                            <div class="preference-options">
+                                <label class="preference-option">
+                                    <input type="radio" name="currency" value="inr" checked> INR (₹)
+                                </label>
+                                <label class="preference-option">
+                                    <input type="radio" name="currency" value="usd"> USD ($)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 style="color: var(--primary-green); margin: 2rem 0 1rem;">
+                        <i class="fas fa-bell"></i> Notification Settings
+                    </h3>
+                    
+                    <div class="notification-item">
+                        <div class="notification-info">
+                            <h4>Order Updates</h4>
+                            <p>Receive notifications about your order status</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="orderUpdates" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-info">
+                            <h4>Promotional Emails</h4>
+                            <p>Receive offers and discounts</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="promotionalEmails">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-info">
+                            <h4>SMS Alerts</h4>
+                            <p>Get delivery updates via SMS</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="smsAlerts" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button class="btn btn-primary" onclick="savePreferences()">
+                            <i class="fas fa-save"></i> Save Preferences
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Security Tab -->
+                <div id="securityTab" class="profile-tab" style="display: none;">
+                    <div class="content-header">
+                        <h2><i class="fas fa-lock"></i> Security Settings</h2>
+                    </div>
+                    
+                    <div class="password-section">
+                        <h3><i class="fas fa-key"></i> Change Password</h3>
+                        
+                        <div class="form-group">
+                            <label>Current Password</label>
+                            <div class="password-input-group">
+                                <input type="password" id="currentPassword" placeholder="Enter current password">
+                                <span class="password-toggle" onclick="togglePassword('currentPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <div class="password-input-group">
+                                <input type="password" id="newPassword" placeholder="Enter new password" oninput="checkPasswordStrength()">
+                                <span class="password-toggle" onclick="togglePassword('newPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                            </div>
+                            <div class="password-strength" id="passwordStrength">
+                                <div class="strength-bar"></div>
+                                <div class="strength-bar"></div>
+                                <div class="strength-bar"></div>
+                                <div class="strength-bar"></div>
+                            </div>
+                            <small class="text-muted">Use at least 8 characters with letters and numbers</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Confirm New Password</label>
+                            <div class="password-input-group">
+                                <input type="password" id="confirmPassword" placeholder="Confirm new password">
+                                <span class="password-toggle" onclick="togglePassword('confirmPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary" onclick="changePassword()">
+                            <i class="fas fa-sync-alt"></i> Update Password
+                        </button>
+                    </div>
+                    
+                    <div class="password-section">
+                        <h3><i class="fas fa-shield-alt"></i> Two-Factor Authentication</h3>
+                        <p style="color: var(--text-light); margin-bottom: 1rem;">
+                            Add an extra layer of security to your account
+                        </p>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-qrcode"></i> Enable 2FA
+                        </button>
+                    </div>
+                    
+                    <div class="password-section">
+                        <h3 class="text-danger"><i class="fas fa-exclamation-triangle"></i> Danger Zone</h3>
+                        <p style="color: var(--text-light); margin-bottom: 1rem;">
+                            Once you delete your account, there is no going back.
+                        </p>
+                        <button class="btn btn-danger" onclick="deleteAccount()">
+                            <i class="fas fa-trash-alt"></i> Delete Account
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-seedling"></i> Java Florist</h4>
+                    <p>Your trusted partner for expressing wishes through flowers. Same day delivery in Mumbai and nationwide through our trusted network.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Flowers</a>
+                    <a href="my-profile.html">My Profile</a>
+                    <a href="cart.html">View Cart</a>
+                    <a href="my-orders.html">My Orders</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Occasions</h4>
+                    <a href="bouquet.html?occasion=birthday">Birthday</a>
+                    <a href="bouquet.html?occasion=wedding">Wedding</a>
+                    <a href="bouquet.html?occasion=newbaby">New Baby</a>
+                    <a href="bouquet.html?occasion=thankyou">Thank You</a>
+                    <a href="bouquet.html?occasion=fathersday">Father's Day</a>
+                    <a href="bouquet.html?occasion=mothersday">Mother's Day</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Mumbai, India</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-envelope"></i> info@javaflorist.com</p>
+                    <p><i class="fas fa-clock"></i> Mon-Sun: 9 AM - 9 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Java Florist. All rights reserved. | Delivering Happiness One Flower at a Time 🌸</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Tab switching
+        function showProfileTab(tabName) {
+            // Hide all tabs
+            document.getElementById('personalTab').style.display = 'none';
+            document.getElementById('addressesTab').style.display = 'none';
+            document.getElementById('ordersTab').style.display = 'none';
+            document.getElementById('preferencesTab').style.display = 'none';
+            document.getElementById('securityTab').style.display = 'none';
+            
+            // Show selected tab
+            document.getElementById(tabName + 'Tab').style.display = 'block';
+            
+            // Update active state in navigation
+            document.querySelectorAll('.profile-nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.closest('.profile-nav-item').classList.add('active');
+        }
+
+        // Profile editing
+        function editProfile() {
+            document.querySelectorAll('#profileForm input, #profileForm select').forEach(field => {
+                field.disabled = false;
+            });
+            document.getElementById('profileActions').style.display = 'flex';
+        }
+
+        function cancelEditProfile() {
+            document.querySelectorAll('#profileForm input, #profileForm select').forEach(field => {
+                field.disabled = true;
+            });
+            document.getElementById('profileActions').style.display = 'none';
+        }
+
+        function saveProfile() {
+            // Simulate saving
+            document.querySelectorAll('#profileForm input, #profileForm select').forEach(field => {
+                field.disabled = true;
+            });
+            document.getElementById('profileActions').style.display = 'none';
+            
+            // Show success message
+            const msg = document.getElementById('successMessage');
+            msg.classList.add('show');
+            setTimeout(() => msg.classList.remove('show'), 3000);
+        }
+
+        // Avatar preview
+        function previewAvatar(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.querySelector('.profile-avatar i').style.display = 'none';
+                    document.querySelector('.profile-avatar').style.backgroundImage = `url('${e.target.result}')`;
+                    document.querySelector('.profile-avatar').style.backgroundSize = 'cover';
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Address functions
+        function addNewAddress() {
+            alert('Add new address functionality');
+        }
+
+        function editAddress(id) {
+            alert(`Edit address ${id}`);
+        }
+
+        function setDefaultAddress(id) {
+            alert(`Set address ${id} as default`);
+        }
+
+        function deleteAddress(id) {
+            if (confirm(`Delete address ${id}?`)) {
+                alert(`Address ${id} deleted`);
+            }
+        }
+
+        // Password functions
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            const icon = event.currentTarget.querySelector('i');
+            
+            if (field.type === 'password') {
+                field.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                field.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        function checkPasswordStrength() {
+            const password = document.getElementById('newPassword').value;
+            const bars = document.querySelectorAll('#passwordStrength .strength-bar');
+            
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (password.match(/[a-z]+/)) strength++;
+            if (password.match(/[A-Z]+/)) strength++;
+            if (password.match(/[0-9]+/)) strength++;
+            
+            bars.forEach((bar, index) => {
+                if (index < strength) {
+                    bar.classList.add('active');
+                } else {
+                    bar.classList.remove('active');
+                }
+            });
+        }
+
+        function changePassword() {
+            const current = document.getElementById('currentPassword').value;
+            const newPass = document.getElementById('newPassword').value;
+            const confirm = document.getElementById('confirmPassword').value;
+            
+            if (!current || !newPass || !confirm) {
+                alert('Please fill all password fields');
+                return;
+            }
+            
+            if (newPass !== confirm) {
+                alert('New passwords do not match');
+                return;
+            }
+            
+            alert('Password changed successfully!');
+        }
+
+        // Preferences
+        function savePreferences() {
+            alert('Preferences saved successfully!');
+        }
+
+        // Delete account
+        function deleteAccount() {
+            if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+                alert('Account deletion request submitted.');
+            }
+        }
+
+        // Update cart count
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const count = cart.reduce((total, item) => total + (item.quantity || 1), 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+        });
+    </script>
+</body>
+</html>

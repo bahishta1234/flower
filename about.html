@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Florist - About Flowers</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-seedling"></i>
+                Java Florist
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="about.html">
+                            <i class="fas fa-info-circle"></i> About Flowers
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="myaccount.html">
+                            <i class="fas fa-user"></i> My Account
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link cart-icon" href="cart.html">
+                            <i class="fas fa-shopping-cart"></i> Cart
+                            <span class="cart-badge" id="cartCount">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="florist-registration.html">
+                            <i class="fas fa-store"></i> Florist Registration
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="text-center py-5">
+        <div class="container">
+            <h1>🌸 About Flowers 🌸</h1>
+            <p class="lead">The beautiful language of flowers - expressing emotions without words</p>
+        </div>
+    </header>
+
+    <!-- Main Content - About Flowers -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <h2 class="text-success mb-4">The Language of Flowers</h2>
+                    <p>For centuries, flowers have been used to convey messages and emotions without uttering a single word. This beautiful tradition, known as floriography, allows us to express feelings that words sometimes cannot capture.</p>
+                    <p>Each flower carries its own meaning and symbolism:</p>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-rose text-success me-2"></i> <strong>Roses</strong> - Love, passion, and romance</li>
+                        <li class="mb-2"><i class="fas fa-seedling text-success me-2"></i> <strong>Lilies</strong> - Purity, virtue, and refined beauty</li>
+                        <li class="mb-2"><i class="fas fa-sun text-success me-2"></i> <strong>Sunflowers</strong> - Adoration, loyalty, and happiness</li>
+                        <li class="mb-2"><i class="fas fa-leaf text-success me-2"></i> <strong>Orchids</strong> - Luxury, strength, and exotic beauty</li>
+                        <li class="mb-2"><i class="fas fa-tree text-success me-2"></i> <strong>Tulips</strong> - Perfect love and elegance</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                         alt="Beautiful flowers" class="img-fluid rounded-4 shadow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Services Section (Requirement Point 1 & 7) -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center text-success mb-5">Our Services</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <h3>Same Day Delivery</h3>
+                        <p>In Mumbai within 5 hours of booking (9 AM - 9 PM)</p>
+                        <span class="service-badge">Within 5 hrs</span>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-globe-asia"></i>
+                        </div>
+                        <h3>Nationwide Delivery</h3>
+                        <p>Through our network of trusted florists across India</p>
+                        <span class="service-badge">Pan India</span>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Working Hours</h3>
+                        <p>9 AM to 9 PM, All days. Order within 5 hours for same day</p>
+                        <span class="service-badge">9 AM - 9 PM</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Delivery Information (Requirement Point 7) -->
+            <div class="alert alert-success mt-5">
+                <i class="fas fa-clock me-2"></i>
+                <strong>Delivery Information:</strong> Orders placed within 5 hours of working hours (9 AM - 9 PM) will be delivered same day. Otherwise, delivery will be next day by 9 AM.
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Flowers Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center text-success mb-5">Why Choose Flowers for Communication?</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="d-flex align-items-start">
+                        <div class="me-3">
+                            <i class="fas fa-heart text-success fa-2x"></i>
+                        </div>
+                        <div>
+                            <h4>Express Emotions</h4>
+                            <p>Flowers convey love, gratitude, sympathy, and joy in ways words cannot.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="d-flex align-items-start">
+                        <div class="me-3">
+                            <i class="fas fa-calendar-check text-success fa-2x"></i>
+                        </div>
+                        <div>
+                            <h4>Perfect for Every Occasion</h4>
+                            <p>Birthdays, weddings, anniversaries, or just because - there's a flower for every moment.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="d-flex align-items-start">
+                        <div class="me-3">
+                            <i class="fas fa-leaf text-success fa-2x"></i>
+                        </div>
+                        <div>
+                            <h4>Timeless Beauty</h4>
+                            <p>Flowers have been used for centuries to communicate feelings across cultures.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="d-flex align-items-start">
+                        <div class="me-3">
+                            <i class="fas fa-smile text-success fa-2x"></i>
+                        </div>
+                        <div>
+                            <h4>Instant Happiness</h4>
+                            <p>Receiving flowers instantly brightens someone's day and brings a smile.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Express Yourself?</h2>
+            <p>Choose from our beautiful collection of bouquets for every occasion</p>
+            <a href="bouquet.html" class="btn btn-lg">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-seedling"></i> Java Florist</h4>
+                    <p>Your trusted partner for expressing wishes through flowers. Same day delivery in Mumbai and nationwide through our trusted network.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Flowers</a>
+                    <a href="myaccount.html">My Account</a>
+                    <a href="cart.html">View Cart</a>
+                    <a href="florist-registration.html">Florist Registration</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Occasions</h4>
+                    <a href="bouquet.html?occasion=birthday">Birthday</a>
+                    <a href="bouquet.html?occasion=wedding">Wedding</a>
+                    <a href="bouquet.html?occasion=newbaby">New Baby</a>
+                    <a href="bouquet.html?occasion=thankyou">Thank You</a>
+                    <a href="bouquet.html?occasion=fathersday">Father's Day</a>
+                    <a href="bouquet.html?occasion=mothersday">Mother's Day</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Mumbai, India</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-envelope"></i> info@javaflorist.com</p>
+                    <p><i class="fas fa-clock"></i> Mon-Sun: 9 AM - 9 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Java Florist. All rights reserved. | Delivering Happiness One Flower at a Time 🌸</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Update cart count from localStorage
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+        });
+    </script>
+</body>
+</html>

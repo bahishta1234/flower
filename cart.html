@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Florist - Shopping Cart</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-seedling"></i> Java Florist
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html"><i class="fas fa-info-circle"></i> About Flowers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="myaccount.html"><i class="fas fa-user"></i> My Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active cart-icon" href="cart.html">
+                            <i class="fas fa-shopping-cart"></i> Cart
+                            <span class="cart-badge" id="cartCount">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="florist-registration.html"><i class="fas fa-store"></i> Florist Registration</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Header -->
+    <div class="cart-header">
+        <div class="container">
+            <h1><i class="fas fa-shopping-cart"></i> Your Shopping Cart</h1>
+            <p>Review your items before checkout</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="cart-container">
+        <div id="cartContent">
+            <!-- Cart with items -->
+            <div class="cart-content">
+                <!-- Cart Items -->
+                <div class="cart-items-section">
+                    <div class="cart-items-header">
+                        <h3><i class="fas fa-seedling"></i> Cart Items</h3>
+                        <span class="item-count" id="itemCount">3 items</span>
+                    </div>
+                    
+                    <div id="cartItemsList">
+                        <!-- Item 1 -->
+                        <div class="cart-item" data-id="1" data-price="1299">
+                            <div class="cart-item-image">
+                                <img src="https://images.unsplash.com/photo-1561181286-d3fee6576739?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Red Rose Bouquet">
+                            </div>
+                            <div class="cart-item-details">
+                                <h4>Red Rose Elegance</h4>
+                                <p>12 stunning red roses with fresh greenery</p>
+                                <small class="text-muted">Arrives fresh, guaranteed</small>
+                            </div>
+                            <div class="cart-item-price">₹1,299</div>
+                            <div class="quantity-control">
+                                <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                                <input type="text" class="quantity-input" value="2" readonly>
+                                <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                            </div>
+                            <button class="remove-btn" onclick="removeItem(this)" title="Remove item">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Item 2 -->
+                        <div class="cart-item" data-id="2" data-price="899">
+                            <div class="cart-item-image">
+                                <img src="https://images.unsplash.com/photo-1591117207239-788bf8de6c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Sunflower Bouquet">
+                            </div>
+                            <div class="cart-item-details">
+                                <h4>Sunshine Delight</h4>
+                                <p>Bright sunflowers arrangement</p>
+                                <small class="text-muted">Perfect for birthdays</small>
+                            </div>
+                            <div class="cart-item-price">₹899</div>
+                            <div class="quantity-control">
+                                <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                                <input type="text" class="quantity-input" value="1" readonly>
+                                <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                            </div>
+                            <button class="remove-btn" onclick="removeItem(this)" title="Remove item">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Item 3 -->
+                        <div class="cart-item" data-id="3" data-price="1499">
+                            <div class="cart-item-image">
+                                <img src="https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Mixed Bouquet">
+                            </div>
+                            <div class="cart-item-details">
+                                <h4>Spring Garden</h4>
+                                <p>Colorful mix of seasonal flowers</p>
+                                <small class="text-muted">Beautiful gift for any occasion</small>
+                            </div>
+                            <div class="cart-item-price">₹1,499</div>
+                            <div class="quantity-control">
+                                <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                                <input type="text" class="quantity-input" value="1" readonly>
+                                <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                            </div>
+                            <button class="remove-btn" onclick="removeItem(this)" title="Remove item">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cart Summary -->
+                <div class="cart-summary">
+                    <h3><i class="fas fa-calculator"></i> Order Summary</h3>
+                    
+                    <div class="summary-row">
+                        <span>Subtotal (3 items)</span>
+                        <span id="subtotal">₹3,697</span>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <span>Delivery Charge</span>
+                        <span id="deliveryCharge">₹50</span>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <span>GST (5%)</span>
+                        <span id="gst">₹185</span>
+                    </div>
+                    
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span id="totalAmount">₹3,882</span>
+                    </div>
+                    
+                    <!-- Delivery Information (Requirement Point 7) -->
+                    <div class="delivery-info-box">
+                        <i class="fas fa-clock"></i>
+                        <strong>Delivery Time:</strong>
+                        <p>Order within next 2 hours for same day delivery (9 AM - 9 PM)</p>
+                        <span class="time-badge">5 Hour Delivery</span>
+                    </div>
+                    
+                    <!-- Checkout Button (Requirement Point 4) -->
+                    <button class="checkout-btn" onclick="proceedToCheckout()">
+                        <i class="fas fa-credit-card"></i> Proceed to Checkout
+                    </button>
+                    
+                    <a href="bouquet.html" class="continue-shopping-btn">
+                        <i class="fas fa-arrow-left"></i> Continue Shopping
+                    </a>
+                    
+                    <!-- Payment Methods -->
+                    <div class="text-center mt-3">
+                        <small class="text-muted">We accept:</small>
+                        <div class="mt-2">
+                            <i class="fab fa-cc-visa fa-2x mx-1 text-primary"></i>
+                            <i class="fab fa-cc-mastercard fa-2x mx-1 text-danger"></i>
+                            <i class="fab fa-cc-amex fa-2x mx-1 text-info"></i>
+                            <i class="fab fa-cc-paypal fa-2x mx-1 text-primary"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Empty Cart Message (Hidden by default) -->
+        <div id="emptyCartMessage" style="display: none;">
+            <div class="empty-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Your cart is empty</h3>
+                <p>Looks like you haven't added any bouquets yet.</p>
+                <a href="bouquet.html" class="shop-now-btn">
+                    <i class="fas fa-seedling"></i> Shop Now
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-seedling"></i> Java Florist</h4>
+                    <p>Your trusted partner for expressing wishes through flowers. Same day delivery in Mumbai and nationwide through our trusted network.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Flowers</a>
+                    <a href="myaccount.html">My Account</a>
+                    <a href="cart.html">View Cart</a>
+                    <a href="florist-registration.html">Florist Registration</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Occasions</h4>
+                    <a href="#">Birthday</a>
+                    <a href="#">Wedding</a>
+                    <a href="#">New Baby</a>
+                    <a href="#">Thank You</a>
+                    <a href="#">Father's Day</a>
+                    <a href="#">Mother's Day</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Mumbai, India</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-envelope"></i> info@javaflorist.com</p>
+                    <p><i class="fas fa-clock"></i> Mon-Sun: 9 AM - 9 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Java Florist. All rights reserved. | Delivering Happiness One Flower at a Time 🌸</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Cart functionality
+        function updateQuantity(btn, change) {
+            const cartItem = btn.closest('.cart-item');
+            const input = cartItem.querySelector('.quantity-input');
+            let quantity = parseInt(input.value) + change;
+            
+            if (quantity < 1) quantity = 1;
+            input.value = quantity;
+            
+            updateCartTotals();
+        }
+        
+        function removeItem(btn) {
+            if (confirm('Remove this item from cart?')) {
+                const cartItem = btn.closest('.cart-item');
+                cartItem.remove();
+                updateCartTotals();
+                
+                // Check if cart is empty
+                const cartItems = document.querySelectorAll('.cart-item').length;
+                if (cartItems === 0) {
+                    document.getElementById('cartContent').style.display = 'none';
+                    document.getElementById('emptyCartMessage').style.display = 'block';
+                }
+                
+                // Update cart count
+                document.getElementById('cartCount').textContent = cartItems - 1;
+                document.getElementById('itemCount').textContent = (cartItems - 1) + ' items';
+            }
+        }
+        
+        function updateCartTotals() {
+            const items = document.querySelectorAll('.cart-item');
+            let subtotal = 0;
+            let totalItems = 0;
+            
+            items.forEach(item => {
+                const price = parseInt(item.dataset.price);
+                const quantity = parseInt(item.querySelector('.quantity-input').value);
+                subtotal += price * quantity;
+                totalItems += quantity;
+            });
+            
+            const deliveryCharge = 50;
+            const gst = Math.round(subtotal * 0.05);
+            const total = subtotal + deliveryCharge + gst;
+            
+            document.getElementById('subtotal').textContent = '₹' + subtotal.toLocaleString();
+            document.getElementById('gst').textContent = '₹' + gst.toLocaleString();
+            document.getElementById('totalAmount').textContent = '₹' + total.toLocaleString();
+            document.getElementById('itemCount').textContent = totalItems + ' items';
+            document.getElementById('cartCount').textContent = totalItems;
+        }
+        
+        function proceedToCheckout() {
+            // Check if user is logged in (Requirement Point 3)
+            const userLogged = localStorage.getItem('userLogged');
+            
+            if (userLogged) {
+                window.location.href = 'checkout.html';
+            } else {
+                alert('Please login or register to proceed to checkout.');
+                window.location.href = 'myaccount.html';
+            }
+        }
+        
+        // Initialize cart on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartTotals();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Florist - Contact Us</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-seedling"></i> Java Florist
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html"><i class="fas fa-info-circle"></i> About Flowers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="myaccount.html"><i class="fas fa-user"></i> My Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.html">
+                            <i class="fas fa-shopping-cart"></i> Cart
+                            <span class="cart-badge" id="cartCount">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="florist-registration.html"><i class="fas fa-store"></i> Florist Registration</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Header -->
+    <div class="contact-header">
+        <div class="container">
+            <h1><i class="fas fa-envelope-open-text"></i> Get in Touch</h1>
+            <p>We'd love to hear from you! Send us a message and we'll respond within 24 hours.</p>
+        </div>
+    </div>
+
+    <!-- Contact Container -->
+    <div class="contact-container">
+        <!-- Contact Info Cards -->
+        <div class="contact-info-grid">
+            <div class="contact-info-card">
+                <div class="info-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>Visit Us</h3>
+                <p>123 Flower Street</p>
+                <p>Mumbai - 400001</p>
+                <p class="highlight">Maharashtra, India</p>
+            </div>
+            
+            <div class="contact-info-card">
+                <div class="info-icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <h3>Call Us</h3>
+                <p>+91 98765 43210</p>
+                <p>+91 98765 43211</p>
+                <p class="highlight">24/7 Support Available</p>
+            </div>
+            
+            <div class="contact-info-card">
+                <div class="info-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h3>Email Us</h3>
+                <p>info@javaflorist.com</p>
+                <p>support@javaflorist.com</p>
+                <p class="highlight">orders@javaflorist.com</p>
+            </div>
+            
+            <div class="contact-info-card">
+                <div class="info-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3>Working Hours</h3>
+                <p>Mon - Sun: 9 AM - 9 PM</p>
+                <p>Delivery Hours</p>
+                <p class="highlight">Same Day Delivery</p>
+            </div>
+        </div>
+
+        <!-- Contact Content -->
+        <div class="contact-content">
+            <!-- Contact Form -->
+            <div class="contact-form-section">
+                <h2>Send a Message</h2>
+                <p class="subtitle">We'll get back to you as soon as possible</p>
+                
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Thank you for your message! We'll contact you soon.</span>
+                </div>
+                
+                <form class="contact-form" id="contactForm" onsubmit="return submitForm(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> First Name *</label>
+                            <input type="text" id="firstName" placeholder="Enter your first name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> Last Name</label>
+                            <input type="text" id="lastName" placeholder="Enter your last name">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-envelope"></i> Email Address *</label>
+                            <input type="email" id="email" placeholder="your@email.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-phone"></i> Phone Number</label>
+                            <input type="tel" id="phone" placeholder="+91 98765 43210">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-tag"></i> Subject *</label>
+                        <select id="subject" required>
+                            <option value="">Select a subject</option>
+                            <option value="order">Order Inquiry</option>
+                            <option value="delivery">Delivery Question</option>
+                            <option value="bouquet">Bouquet Customization</option>
+                            <option value="feedback">Feedback / Suggestion</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-comment"></i> Message *</label>
+                        <textarea id="message" placeholder="Write your message here..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                        <span class="spinner"></span>
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Map Section -->
+            <div class="map-section">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241316.6729289628!2d72.71637275!3d19.0821978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+
+        <!-- Business Hours Section -->
+        <div class="hours-section">
+            <h3><i class="fas fa-clock"></i> Business Hours & Delivery Schedule</h3>
+            <div class="hours-grid">
+                <div class="hours-item">
+                    <span class="day">Monday - Friday</span>
+                    <span class="time">9:00 AM - 9:00 PM</span>
+                </div>
+                <div class="hours-item">
+                    <span class="day">Saturday</span>
+                    <span class="time">9:00 AM - 9:00 PM</span>
+                </div>
+                <div class="hours-item">
+                    <span class="day">Sunday</span>
+                    <span class="time">9:00 AM - 9:00 PM</span>
+                </div>
+                <div class="hours-item">
+                    <span class="day">Public Holidays</span>
+                    <span class="time">9:00 AM - 6:00 PM</span>
+                </div>
+            </div>
+            <div class="hours-note">
+                <i class="fas fa-truck"></i>
+                <strong>Same Day Delivery:</strong> Order before 4 PM for delivery within 5 hours
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-question-circle"></i>
+                        How does same day delivery work?
+                    </div>
+                    <div class="faq-answer">
+                        Orders placed before 4 PM (within 5 hours of working hours) are delivered the same day. Orders after 4 PM are delivered next day by 9 AM.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-question-circle"></i>
+                        Do you deliver nationwide?
+                    </div>
+                    <div class="faq-answer">
+                        Yes! We deliver across India through our network of trusted florists. Mumbai and surrounding areas get special same-day delivery.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-question-circle"></i>
+                        Can I include a custom message?
+                    </div>
+                    <div class="faq-answer">
+                        Absolutely! You can choose from our predefined messages or write your own personal message for the recipient.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-question-circle"></i>
+                        What payment methods do you accept?
+                    </div>
+                    <div class="faq-answer">
+                        We accept all major credit cards, debit cards, UPI (Google Pay, PhonePe), and Cash on Delivery.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-question-circle"></i>
+                        How can I track my order?
+                    </div>
+                    <div class="faq-answer">
+                        Once your order is confirmed, you'll receive an SMS with tracking details. You can also check order status in "My Account".
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-question-circle"></i>
+                        What if recipient is not home?
+                    </div>
+                    <div class="faq-answer">
+                        Our delivery partner will call before delivery. If unavailable, they'll attempt delivery again or leave with a neighbor as per your instructions.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-seedling"></i> Java Florist</h4>
+                    <p>Your trusted partner for expressing wishes through flowers. Same day delivery in Mumbai and nationwide through our trusted network.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Flowers</a>
+                    <a href="myaccount.html">My Account</a>
+                    <a href="cart.html">View Cart</a>
+                    <a href="florist-registration.html">Florist Registration</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Occasions</h4>
+                    <a href="#">Birthday</a>
+                    <a href="#">Wedding</a>
+                    <a href="#">New Baby</a>
+                    <a href="#">Thank You</a>
+                    <a href="#">Father's Day</a>
+                    <a href="#">Mother's Day</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Mumbai, India</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-envelope"></i> info@javaflorist.com</p>
+                    <p><i class="fas fa-clock"></i> Mon-Sun: 9 AM - 9 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Java Florist. All rights reserved. | Delivering Happiness One Flower at a Time 🌸</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Form submission handler
+        function submitForm(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const firstName = document.getElementById('firstName').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // Basic validation
+            if (!firstName || !email || !subject || !message) {
+                alert('Please fill all required fields');
+                return false;
+            }
+            
+            // Email validation
+            if (!isValidEmail(email)) {
+                alert('Please enter a valid email address');
+                return false;
+            }
+            
+            // Show loading state
+            const btn = document.getElementById('submitBtn');
+            btn.classList.add('loading');
+            btn.disabled = true;
+            
+            // Simulate API call (remove in production)
+            setTimeout(() => {
+                // Hide loading
+                btn.classList.remove('loading');
+                btn.disabled = false;
+                
+                // Show success message
+                const successMsg = document.getElementById('successMessage');
+                successMsg.classList.add('show');
+                
+                // Reset form
+                document.getElementById('contactForm').reset();
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMsg.classList.remove('show');
+                }, 5000);
+            }, 1500);
+            
+            return false;
+        }
+        
+        // Email validation helper
+        function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        // Phone number formatting (optional)
+        document.getElementById('phone')?.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 10) value = value.slice(0, 10);
+            e.target.value = value;
+        });
+        
+        // Update cart count from localStorage
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const countElement = document.getElementById('cartCount');
+            if (countElement) {
+                countElement.textContent = cart.length;
+            }
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+        });
+    </script>
+</body>
+</html>
