@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Java Florist - Fresh Flower Delivery</title>
+    <title>Java Florist - Fresh Flower Delivery Mumbai & Nationwide</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -38,12 +38,26 @@
             background: linear-gradient(135deg, #2c3e50, #27ae60) !important;
             padding: 1rem 0;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.5rem 0;
+            background: rgba(44, 62, 80, 0.95) !important;
+            backdrop-filter: blur(10px);
         }
 
         .navbar-brand {
             color: white !important;
             font-size: 2rem;
             font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .navbar-brand i {
+            font-size: 2.2rem;
+            animation: spin 4s linear infinite;
         }
 
         .nav-link {
@@ -51,10 +65,47 @@
             font-weight: 500;
             padding: 0.5rem 1.2rem !important;
             border-radius: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 80%;
         }
 
         .nav-link:hover {
             background: rgba(255,255,255,0.2);
+        }
+
+        .nav-link.active {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .cart-badge {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         /* Hero Section with Background */
@@ -74,12 +125,42 @@
             font-size: 3.5rem;
             margin-bottom: 1.5rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease;
         }
 
         header p {
             font-size: 1.2rem;
             max-width: 800px;
             margin: 0 auto 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-buttons {
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
         }
 
         /* Glassmorphism Effect for Sections */
@@ -127,23 +208,119 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
 
-        /* Hero Stats */
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
+        .occasion-image {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 1rem;
         }
 
-        .stat-item {
+        .service-icon {
+            font-size: 3rem;
+            color: #27ae60;
+            margin-bottom: 1rem;
             text-align: center;
         }
 
-        .stat-number {
-            font-size: 2rem;
+        .service-badge {
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Bouquet Cards */
+        .bouquet-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            transition: transform 0.5s ease;
+        }
+
+        .bouquet-card:hover .bouquet-image {
+            transform: scale(1.05);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #ffc107, #fd7e14);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .delivery-badge {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(255,255,255,0.9);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #27ae60;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .price-tag {
+            font-size: 1.3rem;
             font-weight: bold;
-            display: block;
+            color: #27ae60;
+        }
+
+        .old-price {
+            font-size: 0.9rem;
+            color: #999;
+            text-decoration: line-through;
+            margin-left: 0.5rem;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #27ae60, #2c3e50);
+            border: none;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        .btn-outline-primary {
+            border: 2px solid #27ae60;
+            color: #27ae60;
+            background: transparent;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-primary:hover {
+            background: #27ae60;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #2c3e50, #27ae60);
+            color: white;
+            text-align: center;
+            padding: 60px 0;
+            border-radius: 15px;
         }
 
         /* Footer */
@@ -153,6 +330,35 @@
             padding: 40px 0 20px;
             margin-top: 40px;
             border-radius: 20px 20px 0 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: #27ae60;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            margin-top: 1rem;
         }
 
         .social-links a {
@@ -173,6 +379,25 @@
             transform: translateY(-3px);
         }
 
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #ccc;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             header h1 {
@@ -183,6 +408,10 @@
                 gap: 1rem;
             }
             
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            
             .section-title {
                 font-size: 2rem;
             }
@@ -190,6 +419,11 @@
             section {
                 width: 100%;
                 border-radius: 0;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
             }
         }
     </style>
@@ -259,8 +493,183 @@
         </div>
     </header>
 
-    <!-- Rest of your content (occasions, services, featured bouquets, etc.) goes here -->
-    <!-- Copy the sections from your existing index.html -->
+    <!-- Occasions Section -->
+    <section id="occasions">
+        <div class="container">
+            <h2 class="section-title">🎉 Flowers for Every Occasion</h2>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="occasion-card">
+                        <div class="occasion-image">🎂</div>
+                        <h3>Birthday</h3>
+                        <p>Brighten someone's birthday with our vibrant and colorful flower arrangements.</p>
+                        <a href="bouquet.html?occasion=birthday" class="btn btn-primary">View Collection</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="occasion-card">
+                        <div class="occasion-image">💍</div>
+                        <h3>Wedding</h3>
+                        <p>Make the special day even more beautiful with elegant wedding flower arrangements.</p>
+                        <a href="bouquet.html?occasion=wedding" class="btn btn-primary">View Collection</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="occasion-card">
+                        <div class="occasion-image">👶</div>
+                        <h3>New Baby</h3>
+                        <p>Welcome the newest member with our adorable and sweet baby flower collections.</p>
+                        <a href="bouquet.html?occasion=newbaby" class="btn btn-primary">View Collection</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="occasion-card">
+                        <div class="occasion-image">🙏</div>
+                        <h3>Thank You</h3>
+                        <p>Express your gratitude with meaningful flower arrangements that say it all.</p>
+                        <a href="bouquet.html?occasion=thankyou" class="btn btn-primary">View Collection</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="occasion-card">
+                        <div class="occasion-image">👨</div>
+                        <h3>Father's Day</h3>
+                        <p>Celebrate your dad with sophisticated and charming flower arrangements.</p>
+                        <a href="bouquet.html?occasion=fathersday" class="btn btn-primary">View Collection</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="occasion-card">
+                        <div class="occasion-image">👩</div>
+                        <h3>Mother's Day</h3>
+                        <p>Show your love to mom with our beautiful and heartfelt flower selections.</p>
+                        <a href="bouquet.html?occasion=mothersday" class="btn btn-primary">View Collection</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-truck"></i></div>
+                        <h3>Same Day Delivery</h3>
+                        <p>In Mumbai within 5 hours of booking (9 AM - 9 PM)</p>
+                        <span class="service-badge">Within 5 hrs</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-globe-asia"></i></div>
+                        <h3>Nationwide Delivery</h3>
+                        <p>Through our network of trusted florists across India</p>
+                        <span class="service-badge">Pan India</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-clock"></i></div>
+                        <h3>Working Hours</h3>
+                        <p>9 AM to 9 PM, All days. Order within 5 hours for same day</p>
+                        <span class="service-badge">9 AM - 9 PM</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-credit-card"></i></div>
+                        <h3>Secure Payment</h3>
+                        <p>Credit card payments with 100% secure transaction</p>
+                        <span class="service-badge">SSL Secure</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Bouquets Section -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">✨ Featured Bouquets</h2>
+            <div class="row g-4">
+                <!-- Bouquet 1 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="bouquet-card position-relative">
+                        <span class="featured-badge">Best Seller</span>
+                        <img src="https://images.pexels.com/photos/102127/pexels-photo-102127.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Red Roses" class="bouquet-image">
+                        <span class="delivery-badge"><i class="fas fa-clock"></i> Same Day</span>
+                        <div class="bouquet-info">
+                            <h4>Red Rose Elegance</h4>
+                            <p class="bouquet-description">12 stunning red roses with fresh greenery</p>
+                            <div class="price-tag">₹1,299 <span class="old-price">₹1,599</span></div>
+                            <a href="bouquet-details.html?id=1" class="btn btn-outline-primary w-100 mt-2">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bouquet 2 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="bouquet-card position-relative">
+                        <span class="featured-badge">New</span>
+                        <img src="https://images.pexels.com/photos/4503759/pexels-photo-4503759.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Sunflowers" class="bouquet-image">
+                        <span class="delivery-badge"><i class="fas fa-clock"></i> Same Day</span>
+                        <div class="bouquet-info">
+                            <h4>Sunshine Delight</h4>
+                            <p class="bouquet-description">Bright sunflowers that bring joy and happiness</p>
+                            <div class="price-tag">₹899 <span class="old-price">₹1,099</span></div>
+                            <a href="bouquet-details.html?id=2" class="btn btn-outline-primary w-100 mt-2">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bouquet 3 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="bouquet-card position-relative">
+                        <img src="https://images.pexels.com/photos/931162/pexels-photo-931162.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mixed Flowers" class="bouquet-image">
+                        <span class="delivery-badge"><i class="fas fa-clock"></i> Same Day</span>
+                        <div class="bouquet-info">
+                            <h4>Spring Garden</h4>
+                            <p class="bouquet-description">Colorful mix of seasonal flowers</p>
+                            <div class="price-tag">₹1,499</div>
+                            <a href="bouquet-details.html?id=3" class="btn btn-outline-primary w-100 mt-2">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bouquet 4 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="bouquet-card position-relative">
+                        <span class="featured-badge">20% Off</span>
+                        <img src="https://images.pexels.com/photos/1108215/pexels-photo-1108215.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Lilies" class="bouquet-image">
+                        <span class="delivery-badge"><i class="fas fa-clock"></i> Same Day</span>
+                        <div class="bouquet-info">
+                            <h4>White Lily Perfection</h4>
+                            <p class="bouquet-description">Elegant white lilies for special occasions</p>
+                            <div class="price-tag">₹1,199 <span class="old-price">₹1,499</span></div>
+                            <a href="bouquet-details.html?id=4" class="btn btn-outline-primary w-100 mt-2">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <a href="bouquet.html" class="btn btn-primary btn-lg">View All Bouquets</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Send Your Feelings?</h2>
+            <p>Join thousands of happy customers who trust Java Florist for their special moments.</p>
+            <a href="my-account.html" class="btn btn-primary btn-lg">Register Now</a>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer>
@@ -307,6 +716,7 @@
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Update cart count
@@ -315,7 +725,19 @@
             document.getElementById('cartCount').textContent = cart.length;
         }
         
-        document.addEventListener('DOMContentLoaded', updateCartCount);
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+        });
     </script>
 </body>
 </html>
