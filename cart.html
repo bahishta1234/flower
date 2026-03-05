@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Java Florist - Shopping Cart</title>
+    <title>Java Florist - Your Cart</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -11,6 +11,409 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Navbar Styles - Same as Home Page */
+        .navbar {
+            background: linear-gradient(135deg, #2c3e50, #27ae60) !important;
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.5rem 0;
+            background: rgba(44, 62, 80, 0.95) !important;
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar-brand {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            color: white !important;
+        }
+
+        .navbar-brand i {
+            font-size: 2.2rem;
+            animation: spin 4s linear infinite;
+        }
+
+        .nav-link {
+            position: relative;
+            margin: 0 0.3rem;
+            padding: 0.5rem 1.2rem !important;
+            border-radius: 30px;
+            font-weight: 500;
+            color: white !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        .nav-link.active {
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .cart-badge {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background: rgba(44, 62, 80, 0.95);
+                backdrop-filter: blur(10px);
+                padding: 1rem;
+                border-radius: 10px;
+                margin-top: 1rem;
+            }
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #2c3e50, #27ae60);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Cart Container */
+        .cart-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        /* Cart Table */
+        .cart-table {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .cart-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .cart-table th {
+            background: #f8f9fa;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #2c3e50;
+            border-bottom: 2px solid #27ae60;
+        }
+
+        .cart-table td {
+            padding: 20px 15px;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+        }
+
+        .cart-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Product Image */
+        .cart-product {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .cart-product-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .cart-product-info h4 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .cart-product-info p {
+            color: #666;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Quantity Controls */
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: #27ae60;
+            color: white;
+            border-color: #27ae60;
+        }
+
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        /* Price */
+        .cart-price {
+            font-weight: 600;
+            color: #27ae60;
+            font-size: 1.1rem;
+        }
+
+        .cart-total {
+            font-weight: 700;
+            color: #2c3e50;
+            font-size: 1.2rem;
+        }
+
+        /* Remove Button */
+        .remove-btn {
+            color: #dc3545;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Cart Summary */
+        .cart-summary {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .summary-title {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #27ae60;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .summary-row.total {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2c3e50;
+            border-bottom: none;
+            margin-top: 15px;
+        }
+
+        .summary-label {
+            color: #666;
+        }
+
+        .summary-value {
+            font-weight: 600;
+            color: #27ae60;
+        }
+
+        /* Coupon Code */
+        .coupon-section {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .coupon-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        .coupon-input:focus {
+            border-color: #27ae60;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+        }
+
+        .apply-coupon {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .apply-coupon:hover {
+            background: #27ae60;
+        }
+
+        /* Checkout Button */
+        .checkout-btn {
+            background: linear-gradient(135deg, #27ae60, #2c3e50);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        /* Empty Cart */
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .empty-cart i {
+            font-size: 5rem;
+            color: #27ae60;
+            margin-bottom: 20px;
+        }
+
+        .empty-cart h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .empty-cart p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .shop-now-btn {
+            background: linear-gradient(135deg, #27ae60, #2c3e50);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .shop-now-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+            color: white;
+        }
+
+        /* Footer Social Links */
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            margin-right: 8px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #27ae60;
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cart-table {
+                overflow-x: auto;
+            }
+            
+            .cart-table table {
+                min-width: 600px;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .coupon-section {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -31,176 +434,108 @@
                         <a class="nav-link" href="about.html"><i class="fas fa-info-circle"></i> About Flowers</a>
                     </li>
                     <li class="nav-item">
-    <a class="nav-link" href="my-account.html">  
-        <i class="fas fa-user"></i> My Account
-    </a>
-</li>
+                        <a class="nav-link" href="my-account.html"><i class="fas fa-user"></i> My Account</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link active cart-icon" href="cart.html">
                             <i class="fas fa-shopping-cart"></i> Cart
-                            <span class="cart-badge" id="cartCount">3</span>
+                            <span class="cart-badge" id="cartCount">0</span>
                         </a>
                     </li>
-                   <li class="nav-item">
-    <a class="nav-link" href="florist-registration.html">
-        <i class="fas fa-store"></i> Florist Registration
-    </a>
-</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="florist-registration.html"><i class="fas fa-store"></i> Partner Registration</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Cart Header -->
-    <div class="cart-header">
+    <!-- Page Header -->
+    <div class="page-header">
         <div class="container">
             <h1><i class="fas fa-shopping-cart"></i> Your Shopping Cart</h1>
-            <p>Review your items before checkout</p>
+            <p>Review your items and proceed to checkout</p>
         </div>
     </div>
 
-    <!-- Main Content -->
+    <!-- Cart Container -->
     <div class="cart-container">
-        <div id="cartContent">
-            <!-- Cart with items -->
-            <div class="cart-content">
-                <!-- Cart Items -->
-                <div class="cart-items-section">
-                    <div class="cart-items-header">
-                        <h3><i class="fas fa-seedling"></i> Cart Items</h3>
-                        <span class="item-count" id="itemCount">3 items</span>
-                    </div>
-                    
-                    <div id="cartItemsList">
-                        <!-- Item 1 -->
-                        <div class="cart-item" data-id="1" data-price="1299">
-                            <div class="cart-item-image">
-                                <img src="https://images.unsplash.com/photo-1561181286-d3fee6576739?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Red Rose Bouquet">
-                            </div>
-                            <div class="cart-item-details">
-                                <h4>Red Rose Elegance</h4>
-                                <p>12 stunning red roses with fresh greenery</p>
-                                <small class="text-muted">Arrives fresh, guaranteed</small>
-                            </div>
-                            <div class="cart-item-price">₹1,299</div>
-                            <div class="quantity-control">
-                                <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
-                                <input type="text" class="quantity-input" value="2" readonly>
-                                <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
-                            </div>
-                            <button class="remove-btn" onclick="removeItem(this)" title="Remove item">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        </div>
-                        
-                        <!-- Item 2 -->
-                        <div class="cart-item" data-id="2" data-price="899">
-                            <div class="cart-item-image">
-                                <img src="https://images.unsplash.com/photo-1591117207239-788bf8de6c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Sunflower Bouquet">
-                            </div>
-                            <div class="cart-item-details">
-                                <h4>Sunshine Delight</h4>
-                                <p>Bright sunflowers arrangement</p>
-                                <small class="text-muted">Perfect for birthdays</small>
-                            </div>
-                            <div class="cart-item-price">₹899</div>
-                            <div class="quantity-control">
-                                <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
-                                <input type="text" class="quantity-input" value="1" readonly>
-                                <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
-                            </div>
-                            <button class="remove-btn" onclick="removeItem(this)" title="Remove item">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        </div>
-                        
-                        <!-- Item 3 -->
-                        <div class="cart-item" data-id="3" data-price="1499">
-                            <div class="cart-item-image">
-                                <img src="https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Mixed Bouquet">
-                            </div>
-                            <div class="cart-item-details">
-                                <h4>Spring Garden</h4>
-                                <p>Colorful mix of seasonal flowers</p>
-                                <small class="text-muted">Beautiful gift for any occasion</small>
-                            </div>
-                            <div class="cart-item-price">₹1,499</div>
-                            <div class="quantity-control">
-                                <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
-                                <input type="text" class="quantity-input" value="1" readonly>
-                                <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
-                            </div>
-                            <button class="remove-btn" onclick="removeItem(this)" title="Remove item">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        </div>
-                    </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Cart Table -->
+                <div class="cart-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="cartItems">
+                            <!-- Cart items will be loaded here via JavaScript -->
+                        </tbody>
+                    </table>
                 </div>
-                
+
+                <!-- Empty Cart Message (hidden by default) -->
+                <div class="empty-cart" id="emptyCart" style="display: none;">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3>Your Cart is Empty</h3>
+                    <p>Looks like you haven't added any flowers to your cart yet.</p>
+                    <a href="bouquet.html" class="shop-now-btn">Shop Now</a>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
                 <!-- Cart Summary -->
                 <div class="cart-summary">
-                    <h3><i class="fas fa-calculator"></i> Order Summary</h3>
+                    <h3 class="summary-title">Order Summary</h3>
                     
                     <div class="summary-row">
-                        <span>Subtotal (3 items)</span>
-                        <span id="subtotal">₹3,697</span>
+                        <span class="summary-label">Subtotal</span>
+                        <span class="summary-value" id="subtotal">₹0</span>
                     </div>
                     
                     <div class="summary-row">
-                        <span>Delivery Charge</span>
-                        <span id="deliveryCharge">₹50</span>
+                        <span class="summary-label">Shipping</span>
+                        <span class="summary-value" id="shipping">₹50</span>
                     </div>
                     
                     <div class="summary-row">
-                        <span>GST (5%)</span>
-                        <span id="gst">₹185</span>
+                        <span class="summary-label">Tax (GST 5%)</span>
+                        <span class="summary-value" id="tax">₹0</span>
                     </div>
                     
                     <div class="summary-row total">
-                        <span>Total</span>
-                        <span id="totalAmount">₹3,882</span>
+                        <span class="summary-label">Total</span>
+                        <span class="summary-value" id="total">₹0</span>
                     </div>
-                    
-                    <!-- Delivery Information (Requirement Point 7) -->
-                    <div class="delivery-info-box">
-                        <i class="fas fa-clock"></i>
-                        <strong>Delivery Time:</strong>
-                        <p>Order within next 2 hours for same day delivery (9 AM - 9 PM)</p>
-                        <span class="time-badge">5 Hour Delivery</span>
+
+                    <!-- Coupon Code -->
+                    <div class="coupon-section">
+                        <input type="text" class="coupon-input" placeholder="Enter coupon code" id="couponCode">
+                        <button class="apply-coupon" onclick="applyCoupon()">Apply</button>
                     </div>
-                    
-                    <!-- Checkout Button (Requirement Point 4) -->
+
+                    <!-- Checkout Button -->
                     <button class="checkout-btn" onclick="proceedToCheckout()">
-                        <i class="fas fa-credit-card"></i> Proceed to Checkout
+                        <i class="fas fa-lock"></i> Proceed to Checkout
                     </button>
-                    
-                    <a href="bouquet.html" class="continue-shopping-btn">
-                        <i class="fas fa-arrow-left"></i> Continue Shopping
-                    </a>
-                    
+
                     <!-- Payment Methods -->
-                    <div class="text-center mt-3">
-                        <small class="text-muted">We accept:</small>
+                    <div class="payment-methods mt-3 text-center">
+                        <small class="text-muted">We Accept:</small>
                         <div class="mt-2">
                             <i class="fab fa-cc-visa fa-2x mx-1 text-primary"></i>
                             <i class="fab fa-cc-mastercard fa-2x mx-1 text-danger"></i>
                             <i class="fab fa-cc-amex fa-2x mx-1 text-info"></i>
-                            <i class="fab fa-cc-paypal fa-2x mx-1 text-primary"></i>
+                            <i class="fab fa-cc-paypal fa-2x mx-1 text-success"></i>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Empty Cart Message (Hidden by default) -->
-        <div id="emptyCartMessage" style="display: none;">
-            <div class="empty-cart">
-                <i class="fas fa-shopping-cart"></i>
-                <h3>Your cart is empty</h3>
-                <p>Looks like you haven't added any bouquets yet.</p>
-                <a href="bouquet.html" class="shop-now-btn">
-                    <i class="fas fa-seedling"></i> Shop Now
-                </a>
             </div>
         </div>
     </div>
@@ -212,23 +547,29 @@
                 <div class="footer-section">
                     <h4><i class="fas fa-seedling"></i> Java Florist</h4>
                     <p>Your trusted partner for expressing wishes through flowers. Same day delivery in Mumbai and nationwide through our trusted network.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
                 </div>
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <a href="index.html">Home</a>
                     <a href="about.html">About Flowers</a>
-                    <a href="myaccount.html">My Account</a>
+                    <a href="my-account.html">My Account</a>
                     <a href="cart.html">View Cart</a>
-                    <a href="florist-registration.html">Florist Registration</a>
+                    <a href="florist-registration.html">Partner Registration</a>
                 </div>
                 <div class="footer-section">
                     <h4>Occasions</h4>
-                    <a href="#">Birthday</a>
-                    <a href="#">Wedding</a>
-                    <a href="#">New Baby</a>
-                    <a href="#">Thank You</a>
-                    <a href="#">Father's Day</a>
-                    <a href="#">Mother's Day</a>
+                    <a href="bouquet.html?occasion=birthday">Birthday</a>
+                    <a href="bouquet.html?occasion=wedding">Wedding</a>
+                    <a href="bouquet.html?occasion=newbaby">New Baby</a>
+                    <a href="bouquet.html?occasion=thankyou">Thank You</a>
+                    <a href="bouquet.html?occasion=fathersday">Father's Day</a>
+                    <a href="bouquet.html?occasion=mothersday">Mother's Day</a>
                 </div>
                 <div class="footer-section">
                     <h4>Contact Info</h4>
@@ -247,75 +588,155 @@
     <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Cart functionality
-        function updateQuantity(btn, change) {
-            const cartItem = btn.closest('.cart-item');
-            const input = cartItem.querySelector('.quantity-input');
-            let quantity = parseInt(input.value) + change;
-            
-            if (quantity < 1) quantity = 1;
-            input.value = quantity;
-            
-            updateCartTotals();
-        }
+        // Cart data
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
         
-        function removeItem(btn) {
-            if (confirm('Remove this item from cart?')) {
-                const cartItem = btn.closest('.cart-item');
-                cartItem.remove();
-                updateCartTotals();
-                
-                // Check if cart is empty
-                const cartItems = document.querySelectorAll('.cart-item').length;
-                if (cartItems === 0) {
-                    document.getElementById('cartContent').style.display = 'none';
-                    document.getElementById('emptyCartMessage').style.display = 'block';
-                }
-                
-                // Update cart count
-                document.getElementById('cartCount').textContent = cartItems - 1;
-                document.getElementById('itemCount').textContent = (cartItems - 1) + ' items';
+        // Sample products data
+        const products = {
+            1: { name: 'Red Rose Elegance', price: 1299, image: 'https://images.pexels.com/photos/102127/pexels-photo-102127.jpeg?auto=compress&cs=tinysrgb&w=600' },
+            2: { name: 'Sunshine Delight', price: 899, image: 'https://images.pexels.com/photos/4503759/pexels-photo-4503759.jpeg?auto=compress&cs=tinysrgb&w=600' },
+            3: { name: 'Spring Garden', price: 1499, image: 'https://images.pexels.com/photos/931162/pexels-photo-931162.jpeg?auto=compress&cs=tinysrgb&w=600' },
+            4: { name: 'White Lily Perfection', price: 1199, image: 'https://images.pexels.com/photos/1108215/pexels-photo-1108215.jpeg?auto=compress&cs=tinysrgb&w=600' }
+        };
+
+        // Display cart items
+        function displayCart() {
+            const cartItems = document.getElementById('cartItems');
+            const emptyCart = document.getElementById('emptyCart');
+            
+            if (!cartItems) return;
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '';
+                emptyCart.style.display = 'block';
+                updateSummary();
+                return;
             }
-        }
-        
-        function updateCartTotals() {
-            const items = document.querySelectorAll('.cart-item');
-            let subtotal = 0;
-            let totalItems = 0;
             
-            items.forEach(item => {
-                const price = parseInt(item.dataset.price);
-                const quantity = parseInt(item.querySelector('.quantity-input').value);
-                subtotal += price * quantity;
-                totalItems += quantity;
+            emptyCart.style.display = 'none';
+            
+            let html = '';
+            cart.forEach((item, index) => {
+                const product = products[item.id] || { name: 'Product', price: 0, image: '' };
+                const total = product.price * item.quantity;
+                
+                html += `
+                    <tr>
+                        <td>
+                            <div class="cart-product">
+                                <img src="${product.image}" alt="${product.name}" class="cart-product-img">
+                                <div class="cart-product-info">
+                                    <h4>${product.name}</h4>
+                                    <p>Delivery in 2-3 days</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="cart-price">₹${product.price}</td>
+                        <td>
+                            <div class="quantity-control">
+                                <span class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</span>
+                                <input type="text" class="quantity-input" value="${item.quantity}" readonly>
+                                <span class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</span>
+                            </div>
+                        </td>
+                        <td class="cart-total">₹${total}</td>
+                        <td>
+                            <button class="remove-btn" onclick="removeItem(${index})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
             });
             
-            const deliveryCharge = 50;
-            const gst = Math.round(subtotal * 0.05);
-            const total = subtotal + deliveryCharge + gst;
-            
-            document.getElementById('subtotal').textContent = '₹' + subtotal.toLocaleString();
-            document.getElementById('gst').textContent = '₹' + gst.toLocaleString();
-            document.getElementById('totalAmount').textContent = '₹' + total.toLocaleString();
-            document.getElementById('itemCount').textContent = totalItems + ' items';
-            document.getElementById('cartCount').textContent = totalItems;
+            cartItems.innerHTML = html;
+            updateSummary();
         }
-        
-        function proceedToCheckout() {
-            // Check if user is logged in (Requirement Point 3)
-            const userLogged = localStorage.getItem('userLogged');
-            
-            if (userLogged) {
-                window.location.href = 'checkout.html';
-            } else {
-                alert('Please login or register to proceed to checkout.');
-                window.location.href = 'myaccount.html';
+
+        // Update quantity
+        function updateQuantity(index, change) {
+            if (cart[index]) {
+                cart[index].quantity += change;
+                
+                if (cart[index].quantity < 1) {
+                    cart.splice(index, 1);
+                }
+                
+                localStorage.setItem('cart', JSON.stringify(cart));
+                displayCart();
+                updateCartCount();
             }
         }
-        
-        // Initialize cart on page load
+
+        // Remove item
+        function removeItem(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCart();
+            updateCartCount();
+        }
+
+        // Update cart summary
+        function updateSummary() {
+            let subtotal = 0;
+            cart.forEach(item => {
+                const product = products[item.id] || { price: 0 };
+                subtotal += product.price * item.quantity;
+            });
+            
+            const shipping = subtotal > 0 ? 50 : 0;
+            const tax = subtotal * 0.05;
+            const total = subtotal + shipping + tax;
+            
+            document.getElementById('subtotal').textContent = `₹${subtotal}`;
+            document.getElementById('shipping').textContent = shipping ? `₹${shipping}` : 'Free';
+            document.getElementById('tax').textContent = `₹${Math.round(tax)}`;
+            document.getElementById('total').textContent = `₹${Math.round(total)}`;
+        }
+
+        // Update cart count in navbar
+        function updateCartCount() {
+            const cartCount = document.getElementById('cartCount');
+            if (cartCount) {
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCount.textContent = totalItems;
+            }
+        }
+
+        // Apply coupon
+        function applyCoupon() {
+            const coupon = document.getElementById('couponCode').value;
+            if (coupon.toUpperCase() === 'WELCOME10') {
+                alert('Coupon applied! 10% discount on next page.');
+            } else {
+                alert('Invalid coupon code');
+            }
+        }
+
+        // Proceed to checkout
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            alert('Proceeding to checkout...');
+            // window.location.href = 'checkout.html';
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
-            updateCartTotals();
+            displayCart();
+            updateCartCount();
         });
     </script>
 </body>
