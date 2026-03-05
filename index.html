@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Java Florist - Fresh Flower Delivery Mumbai & Nationwide</title>
+    <title>Java Florist - Fresh Flower Delivery</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -12,94 +12,185 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Improved Navbar Styles */
-        .navbar {
-            background: linear-gradient(135deg, #2c3e50, #27ae60);
-            padding: 1rem 0;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
+        /* Beautiful Flower Background */
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            min-height: 100vh;
         }
 
-        .navbar.scrolled {
-            padding: 0.5rem 0;
-            background: rgba(44, 62, 80, 0.95);
-            backdrop-filter: blur(10px);
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.pexels.com/photos/1072179/pexels-photo-1072179.jpeg?auto=compress&cs=tinysrgb&w=1600');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: linear-gradient(135deg, #2c3e50, #27ae60) !important;
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
 
         .navbar-brand {
+            color: white !important;
             font-size: 2rem;
             font-weight: 700;
-            letter-spacing: 1px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .navbar-brand i {
-            font-size: 2.2rem;
-            animation: spin 4s linear infinite;
         }
 
         .nav-link {
-            position: relative;
-            margin: 0 0.3rem;
+            color: white !important;
+            font-weight: 500;
             padding: 0.5rem 1.2rem !important;
             border-radius: 30px;
-            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Hero Section with Background */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=1600');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            padding: 120px 0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Glassmorphism Effect for Sections */
+        section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin: 30px auto;
+            padding: 60px 0;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            width: 95%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #27ae60, #2c3e50);
+        }
+
+        /* Cards with Hover Effects */
+        .occasion-card, .service-card, .bouquet-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .occasion-card:hover, .service-card:hover, .bouquet-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Hero Stats */
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 40px;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            margin-right: 8px;
+            color: white;
             transition: all 0.3s ease;
         }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: white;
-            transition: width 0.3s ease;
+        .social-links a:hover {
+            background: #27ae60;
+            transform: translateY(-3px);
         }
 
-        .nav-link:hover::after {
-            width: 80%;
-        }
-
-        .nav-link.active {
-            background: rgba(255,255,255,0.2);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .nav-link.active::after {
-            width: 80%;
-        }
-
-        .cart-badge {
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @media (max-width: 991px) {
-            .navbar-collapse {
-                background: rgba(44, 62, 80, 0.95);
-                backdrop-filter: blur(10px);
-                padding: 1rem;
-                border-radius: 10px;
-                margin-top: 1rem;
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
             }
-        }
-
-        /* Hero section adjustment */
-        header {
-            background: linear-gradient(135deg, #2c3e50, #27ae60);
+            
+            .hero-stats {
+                gap: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            section {
+                width: 100%;
+                border-radius: 0;
+            }
         }
     </style>
 </head>
@@ -108,8 +199,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="index.html">
-                <i class="fas fa-seedling"></i>
-                Java Florist
+                <i class="fas fa-seedling"></i> Java Florist
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -117,37 +207,29 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html">
-                            <i class="fas fa-home"></i> Home
-                        </a>
+                        <a class="nav-link active" href="index.html"><i class="fas fa-home"></i> Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="about.html">
-                            <i class="fas fa-info-circle"></i> About Flowers
-                        </a>
+                        <a class="nav-link" href="about.html"><i class="fas fa-info-circle"></i> About Flowers</a>
                     </li>
-                  <li class="nav-item">
-    <a class="nav-link" href="my-account.html">  
-        <i class="fas fa-user"></i> My Account
-    </a>
-</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="my-account.html"><i class="fas fa-user"></i> My Account</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link cart-icon" href="cart.html">
                             <i class="fas fa-shopping-cart"></i> Cart
                             <span class="cart-badge" id="cartCount">0</span>
                         </a>
                     </li>
-                   <li class="nav-item">
-    <a class="nav-link" href="florist-registration.html">
-        <i class="fas fa-store"></i> Florist Registration
-    </a>
-</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="florist-registration.html"><i class="fas fa-store"></i> Partner Registration</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Background -->
     <header>
         <div class="container">
             <h1>🌸 Express Your Love with Flowers</h1>
@@ -177,217 +259,8 @@
         </div>
     </header>
 
-    <!-- Occasions Section -->
-    <section id="occasions">
-        <div class="container">
-            <h2 class="section-title">🎉 Flowers for Every Occasion</h2>
-            <div class="row g-4">
-                <!-- Birthday -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="occasion-card">
-                        <div class="occasion-image">🎂</div>
-                        <div class="occasion-content">
-                            <h3>Birthday</h3>
-                            <p>Brighten someone's birthday with our vibrant and colorful flower arrangements.</p>
-                            <a href="bouquet.html?occasion=birthday" class="btn btn-primary">View Birthday Bouquets</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Wedding -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="occasion-card">
-                        <div class="occasion-image">💍</div>
-                        <div class="occasion-content">
-                            <h3>Wedding</h3>
-                            <p>Make the special day even more beautiful with elegant wedding flower arrangements.</p>
-                            <a href="bouquet.html?occasion=wedding" class="btn btn-primary">View Wedding Bouquets</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- New Baby -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="occasion-card">
-                        <div class="occasion-image">👶</div>
-                        <div class="occasion-content">
-                            <h3>New Baby</h3>
-                            <p>Welcome the newest member with our adorable and sweet baby flower collections.</p>
-                            <a href="bouquet.html?occasion=newbaby" class="btn btn-primary">View New Baby Bouquets</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Thank You -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="occasion-card">
-                        <div class="occasion-image">🙏</div>
-                        <div class="occasion-content">
-                            <h3>Thank You</h3>
-                            <p>Express your gratitude with meaningful flower arrangements that say it all.</p>
-                            <a href="bouquet.html?occasion=thankyou" class="btn btn-primary">View Thank You Bouquets</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Father's Day -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="occasion-card">
-                        <div class="occasion-image">👨</div>
-                        <div class="occasion-content">
-                            <h3>Father's Day</h3>
-                            <p>Celebrate your dad with sophisticated and charming flower arrangements.</p>
-                            <a href="bouquet.html?occasion=fathersday" class="btn btn-primary">View Father's Day Bouquets</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Mother's Day -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="occasion-card">
-                        <div class="occasion-image">👩</div>
-                        <div class="occasion-content">
-                            <h3>Mother's Day</h3>
-                            <p>Show your love to mom with our beautiful and heartfelt flower selections.</p>
-                            <a href="bouquet.html?occasion=mothersday" class="btn btn-primary">View Mother's Day Bouquets</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="services-section">
-        <div class="container">
-            <h2 class="section-title">Our Services</h2>
-            <div class="row g-4">
-                <div class="col-lg-3 col-md-6">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-truck"></i>
-                        </div>
-                        <h3>Same Day Delivery</h3>
-                        <p>In Mumbai within 5 hours of booking (9 AM - 9 PM)</p>
-                        <span class="service-badge">Within 5 hrs</span>
-                    </div>
-                </div>
-                
-                <div class="col-lg-3 col-md-6">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-globe-asia"></i>
-                        </div>
-                        <h3>Nationwide Delivery</h3>
-                        <p>Through our network of trusted florists across India</p>
-                        <span class="service-badge">Pan India</span>
-                    </div>
-                </div>
-                
-                <div class="col-lg-3 col-md-6">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <h3>Working Hours</h3>
-                        <p>9 AM to 9 PM, All days. Order within 5 hours for same day</p>
-                        <span class="service-badge">9 AM - 9 PM</span>
-                    </div>
-                </div>
-                
-                <div class="col-lg-3 col-md-6">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-credit-card"></i>
-                        </div>
-                        <h3>Secure Payment</h3>
-                        <p>Credit card payments with 100% secure transaction</p>
-                        <span class="service-badge">SSL Secure</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Bouquets Section -->
-    <section>
-        <div class="container">
-            <h2 class="section-title">✨ Featured Bouquets</h2>
-            <div class="row g-4">
-                <!-- Bouquet 1: Red Roses -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="bouquet-card position-relative">
-                        <span class="featured-badge">Best Seller</span>
-                        <img src="https://images.pexels.com/photos/102127/pexels-photo-102127.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Red Rose Bouquet" class="bouquet-image">
-                        <span class="delivery-badge"><i class="fas fa-clock"></i> Same Day</span>
-                        <div class="bouquet-info">
-                            <h4>Red Rose Elegance</h4>
-                            <p class="bouquet-description">12 stunning red roses with fresh greenery, perfect for expressing love.</p>
-                            <div class="price-tag">₹1,299 <span class="old-price">₹1,599</span></div>
-                            <a href="bouquet-details.html?id=1" class="btn btn-outline-primary w-100 mt-2">View Details</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Bouquet 2: Sunflowers -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="bouquet-card position-relative">
-                        <span class="featured-badge">New</span>
-                        <img src="https://images.pexels.com/photos/4503759/pexels-photo-4503759.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Sunflower Bouquet" class="bouquet-image">
-                        <span class="delivery-badge"><i class="fas fa-clock"></i> Same Day</span>
-                        <div class="bouquet-info">
-                            <h4>Sunshine Delight</h4>
-                            <p class="bouquet-description">Bright sunflowers arrangement that brings joy and happiness.</p>
-                            <div class="price-tag">₹899 <span class="old-price">₹1,099</span></div>
-                            <a href="bouquet-details.html?id=2" class="btn btn-outline-primary w-100 mt-2">View Details</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Bouquet 3: Mixed Flowers -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="bouquet-card position-relative">
-                        <img src="https://images.pexels.com/photos/931162/pexels-photo-931162.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mixed Bouquet" class="bouquet-image">
-                        <span class="delivery-badge"><i class="fas fa-clock"></i> Same Day</span>
-                        <div class="bouquet-info">
-                            <h4>Spring Garden</h4>
-                            <p class="bouquet-description">Colorful mix of seasonal flowers in a beautiful arrangement.</p>
-                            <div class="price-tag">₹1,499</div>
-                            <a href="bouquet-details.html?id=3" class="btn btn-outline-primary w-100 mt-2">View Details</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Bouquet 4: Lilies -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="bouquet-card position-relative">
-                        <span class="featured-badge">20% Off</span>
-                        <img src="https://images.pexels.com/photos/1108215/pexels-photo-1108215.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Lily Bouquet" class="bouquet-image">
-                        <span class="delivery-badge"><i class="fas fa-clock"></i> Same Day</span>
-                        <div class="bouquet-info">
-                            <h4>White Lily Perfection</h4>
-                            <p class="bouquet-description">Elegant white lilies for special occasions and celebrations.</p>
-                            <div class="price-tag">₹1,199 <span class="old-price">₹1,499</span></div>
-                            <a href="bouquet-details.html?id=4" class="btn btn-outline-primary w-100 mt-2">View Details</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-5">
-                <a href="bouquet.html" class="btn btn-primary btn-lg">View All Bouquets</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Call to Action Section -->
-    <section class="cta-section">
-        <div class="container">
-            <h2>Ready to Send Your Feelings?</h2>
-            <p>Join thousands of happy customers who trust Java Florist for their special moments.</p>
-            <a href="my-account.html" class="btn btn-lg">Register Now</a>
-        </div>
-    </section>
+    <!-- Rest of your content (occasions, services, featured bouquets, etc.) goes here -->
+    <!-- Copy the sections from your existing index.html -->
 
     <!-- Footer -->
     <footer>
@@ -409,7 +282,7 @@
                     <a href="about.html">About Flowers</a>
                     <a href="my-account.html">My Account</a>
                     <a href="cart.html">View Cart</a>
-                    <a href="florist-registration.html">Florist Registration</a>
+                    <a href="florist-registration.html">Partner Registration</a>
                 </div>
                 <div class="footer-section">
                     <h4>Occasions</h4>
@@ -429,23 +302,20 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Java Florist. All Rights Reserved.</p>
+                <p>&copy; 2026 Java Florist. All rights reserved. | Delivering Happiness One Flower at a Time 🌸</p>
             </div>
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+        // Update cart count
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+        
+        document.addEventListener('DOMContentLoaded', updateCartCount);
     </script>
 </body>
 </html>
